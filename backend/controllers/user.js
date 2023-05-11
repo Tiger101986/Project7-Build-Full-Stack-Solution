@@ -5,28 +5,23 @@ const User = require('../models/user');
 
 // signup with email and password(hash) 
 exports.signUp = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10).then(
-        (hash) => {
-            const user = new User({
-                email: req.body.email,
-                password: hash
-            });
-            user.save().then(
-                () => {
-                    res.status(201).json({ message: 'User added successfully!' });
-                }
-            ).catch(
-                (error) => {
-                    res.status(500).json({ error: error });
-                }
-            );
+    const user = new User({
+        email: req.body.email,
+        password: req.body.password
+    })
+
+    user.save().then(() => {
+        res.status(201).json({ message: 'User added successfully!' });
+    }).catch(
+        (error) => {
+            res.status(500).json({ error: error });
         }
     );
-};
+}
 
 //loging wiht email and password(bcryt.compare(inputpassword, saveduserpassword))
 exports.logIn = (req, res, next) => {
-    User.findOne({ email: req.body.email }).then(
+    User.findOne({ where: { email: req.body.email } }).then(
         (user) => {
             if (!user) {
                 return res.status(401).json({
