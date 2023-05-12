@@ -5,18 +5,20 @@ const User = require('../models/user');
 
 // signup with email and password(hash) 
 exports.signUp = (req, res, next) => {
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password
-    })
+    bcrypt.hash(req.body.password, 10).then((hash) => {
+        const user = new User({
+            email: req.body.email,
+            password: hash
+        })
 
-    user.save().then(() => {
-        res.status(201).json({ message: 'User added successfully!' });
-    }).catch(
-        (error) => {
-            res.status(500).json({ error: error });
-        }
-    );
+        user.save().then(() => {
+            res.status(201).json({ message: 'User added successfully!' });
+        }).catch(
+            (error) => {
+                res.status(500).json({ error: error });
+            }
+        );
+    })
 }
 
 //loging wiht email and password(bcryt.compare(inputpassword, saveduserpassword))
@@ -60,3 +62,37 @@ exports.logIn = (req, res, next) => {
         }
     );
 }
+
+//Delete a Sauce card
+exports.deleteSauce = (req, res, next) => {
+    Sauce.findOne({ _id: req.params.id }).then(
+        (sauce) => {
+            if (!sauce) {
+                return res.status(404).json({
+                    error: new Error('No such Sauce!')
+                });
+            }
+            if (sauce.userId !== req.auth.userId) {
+                return res.status(403).json({
+                    error: new Error('Unauthorized request!')
+                });
+            }
+            const filename = sauce.imageUrl.split('/images/')[1];
+            fileSystem.unlink('images/' + filename, () => {
+                Sauce.deleteOne({ _id: req.params.id }).then(
+                    () => {
+                        res.status(200).json({
+                            message: 'Deleted!'
+                        });
+                    }
+                ).catch(
+                    (error) => {
+                        res.status(400).json({
+                            error: error
+                        });
+                    }
+                );
+            });
+        }
+    );
+};
