@@ -1,11 +1,11 @@
 <template>
     <form @submit.prevent="handleSubmit">
-        <h1> Sign-up Account </h1>
         <label for="email"> Email </label>
-        <input type="email" v-model="email">
+        <input type="email" v-model="email" required>
         <label for="password"> Password </label>
-        <input type="password" v-model="password">
+        <input type="password" v-model="password" required>
         <button> Submit </button>
+        
     </form>
 </template>
 <script>
