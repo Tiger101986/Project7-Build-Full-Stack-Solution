@@ -1,11 +1,11 @@
-//Create user model table in email and password attributes or feild for user signup and login
+//Create Post model table 
 const sequelize = require('./sequelize-cofig');
 const { DataTypes } = require('sequelize');
 
 const Post = sequelize.define("Post", {
     userId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
        
     },
     userName: {
@@ -20,21 +20,16 @@ const Post = sequelize.define("Post", {
         type: DataTypes.STRING,
         allowNull: false   
     },
-    read:
+    readedPost: {type:DataTypes.INTEGER},
+    userRead:
     {
-        type:DataTypes.INTEGER,
-        allowNull: false
-    },
-    reader:
-    {
-        type:DataTypes.ARRAY,
-        allowNull: false
+        type:DataTypes.ARRAY(DataTypes.STRING),
     },
     tableName: "Post",
     timestamps: true,
     createdAt: true,
     updatedAt: true,
-    paranoid: true // tp delete user account
+    paranoid: true // delete user post
 });
 
 module.exports = Post;

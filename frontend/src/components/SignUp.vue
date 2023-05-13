@@ -18,11 +18,11 @@ export default {
   name: "SignUp",
   data() {
     return {
-      user : {
-        email: '',
-        password: ''
-      }  
-    }
-  }  
+      user: {
+        email: "",
+        password: "",
+      },
+    };
+  },
 };
 </script>
