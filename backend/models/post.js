@@ -4,27 +4,21 @@ const { DataTypes } = require('sequelize');
 
 const Post = sequelize.define("Post", {
     userId: {
-        type: DataTypes.STRING,
-        allowNull: false
-       
-    },
-    userName: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.INTEGER,
+        allowNull: false   
     },
     contents:{
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(512),
         allowNull: false    
     },
     imageUrl: {
         type: DataTypes.STRING,
-        allowNull: false   
+        allowNull: true   
     },
-    readedPost: {type:DataTypes.INTEGER},
-    userRead:
-    {
-        type:DataTypes.ARRAY(DataTypes.STRING),
-    },
+    usersRead:{
+        type:DataTypes.ARRAY(DataTypes.INTEGER),
+    }    
+},{
     tableName: "Post",
     timestamps: true,
     createdAt: true,

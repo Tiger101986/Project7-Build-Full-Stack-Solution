@@ -9,11 +9,9 @@ exports.createPost = (req, res, next) => {
     req.body.post = JSON.parse(req.body.post);
     const post = new Post({
         userId: req.body.post.userId,
-        userName: req.body.post.userName,
         contents: req.body.post.contents,
         imageUrl: url + '/images/' + req.file.filename,
-        readedPost: 0,
-        userRead: [],
+        usersRead: [],
     });
     post.save()
         .then(() => {
@@ -54,21 +52,17 @@ exports.modifyPost = (req, res, next) => {
         post = {
             id: req.params.id,
             userId: req.body.post.userId,
-            userName: req.body.post.userName,
             contents: req.body.sauce.contents,
             imageUrl: url + '/images/' + req.file.filename,
-            readedPost: 0,
-            userRead: [],
+            usersRead: [],
         };
     } else {
         post = {
             id: req.params.id,
             userId: req.body.userId,
-            userName: req.body.name,
             contents: req.body.contents,
             imageUrl: req.body.imageUrl,
-            readedPost: 0,
-            userRead: [],
+            usersRead: [],
         }
     }
     Post.updateOne({ id: req.params.id }, post).then(
@@ -140,9 +134,9 @@ exports.read = (req, res, next) => {
     let userId = req.body.userId;
     Post.findOne({ where: {id: req.params.id } }).then(post => {
         if (readedPost === 1) {
-            if (!post.usersLiked.includes(userId)) {
-                post.userRead.push(userId);
-                post.readedPost++;
+            if (!post.usersRead.includes(userId)) {
+                post.usersRead.push(userId);
+
             }
         }
         
