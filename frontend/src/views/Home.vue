@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Groupomania-logo" src="/images/icon-above-font.png">
-    <Sign-up/>
+    
     
   </div>
 </template>

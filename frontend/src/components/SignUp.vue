@@ -26,3 +26,15 @@ export default {
   },
 };
 </script>
+
+<style>
+form input {
+  display: block;
+  width: 30px;
+  height: 40px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+}
+</style>
