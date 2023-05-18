@@ -4,12 +4,20 @@ const Post = require('../models/post');
 
 //Creating post card and save 
 exports.createPost = (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host');
-    req.body.post = JSON.parse(req.body.post);
+    let parsePost;
+    let imageUrl = null;
+    if ( req.file ) {
+        const url = req.protocol + '://' + req.get('host');
+        imageUrl = url + '/images/' + req.file.filename,
+        parsePost = JSON.parse(req.body.post);
+    }else{
+        parsePost = req.body;
+    }
+    
     const post = new Post({
-        userId: req.body.post.userId,
-        contents: req.body.post.contents,
-        imageUrl: url + '/images/' + req.file.filename,
+        userId: parsePost.userId,
+        contents: parsePost.contents,
+        imageUrl: imageUrl,
         usersRead: [],
     });
     post.save()
