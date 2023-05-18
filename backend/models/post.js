@@ -23,7 +23,7 @@ const Post = sequelize.define("Post", {
     timestamps: true,
     createdAt: true,
     updatedAt: true,
-    paranoid: true // delete user post
+    paranoid: false // delete user post
 });
 
 module.exports = Post;

@@ -21,7 +21,7 @@ const User = sequelize.define("User", {
     timestamps: true,
     createdAt: true,
     updatedAt: true,
-    paranoid: true // tp delete user account
+    paranoid: false // tp delete user account
 });
 
 module.exports = User;
