@@ -69,20 +69,20 @@ exports.deleteAccount = (req, res, next) => {
         (user) => {
             if (!user) {
                 return res.status(404).json({
-                    error: new Error('Only user is authorized to delete account!')
+                    error: 'Only user is authorized to delete account!'
                 });
             }
-            if (user.userId !== req.auth.userId) {
+            if (user.id !== req.auth.userId) {
                 return res.status(403).json({
-                    error: new Error('Unauthorized request!')
+                    error: 'Unauthorized request!'
                 });
             }
-            User.deleteOne({ where: { id: req.params.id } })
+            User.destroy({ where: { id: req.params.id } })
                 .then(() => {
                     res.status(200).json({ message: ' User Account Delected Successfully!' });
                 }
                 ).catch((error) => {
-                    res.status(400).json({ error: error });
+                    res.status(400).json({ error: error.message || error });
                 }
                 );
         }
