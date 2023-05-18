@@ -1,5 +1,4 @@
 //import model of sauce folder and bilt-in module file system fs()  
-const Sauce = require('../models/post');
 const fileSystem = require('fs');
 const Post = require('../models/post');
 
@@ -45,14 +44,14 @@ exports.getOnePost = (req, res, next) => {
 
 //Updating an existed post card
 exports.modifyPost = (req, res, next) => {
-    let post = new Post({ id: req.params.id });
+    let post = new Post({ where: { id: req.params.id } });
     if (req.file) {
         const url = req.protocol + '://' + req.get('host');
         req.body.post = JSON.parse(req.body.post);
         post = {
             id: req.params.id,
             userId: req.body.post.userId,
-            contents: req.body.sauce.contents,
+            contents: req.body.post.contents,
             imageUrl: url + '/images/' + req.file.filename,
             usersRead: [],
         };
@@ -65,7 +64,7 @@ exports.modifyPost = (req, res, next) => {
             usersRead: [],
         }
     }
-    Post.updateOne({ id: req.params.id }, post).then(
+    Post.updateOne({ where: { id: req.params.id } }, post).then(
         () => {
             res.status(201).json({
                 message: 'Post updated successfully!'
@@ -117,7 +116,7 @@ exports.deletePost = (req, res, next) => {
 
 // Display all sauce cards
 exports.getAllPosts = (req, res, next) => {
-    Sauce.find().then((post) => {
+    Post.find().then((post) => {
         res.status(200).json(post);
     }).catch(
         (error) => {
@@ -132,14 +131,14 @@ exports.getAllPosts = (req, res, next) => {
 exports.read = (req, res, next) => {
     let readedPost = req.body.readedPost;
     let userId = req.body.userId;
-    Post.findOne({ where: {id: req.params.id } }).then(post => {
+    Post.findOne({ where: { id: req.params.id } }).then(post => {
         if (readedPost === 1) {
             if (!post.usersRead.includes(userId)) {
                 post.usersRead.push(userId);
 
             }
         }
-        
+
         Post.updateOne({ id: req.params.id }, post).then(() => {
             res.status(201).json({ message: 'Post updated successfully.' })
         })

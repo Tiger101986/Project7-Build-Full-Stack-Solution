@@ -9,10 +9,10 @@ module.exports = (req, res, next) => {
         req.auth = { userId };
         if (req.body.userId && req.body.userId !== userId) {
             throw 'Invalid user ID';
-        }else {
+        } else {
             next();
         }
-    }catch {
+    } catch {
         res.status(403).json({
             error: new Error('Unauthorized request!')
         });

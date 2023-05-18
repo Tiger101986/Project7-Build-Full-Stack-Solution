@@ -38,11 +38,11 @@ exports.logIn = (req, res, next) => {
                         });
                     }
                     const token = jsonwebtoken.sign(
-                        { userId: user._id },
+                        { userId: user.id },
                         'RANDOM_TOKEN_SECRET',
                         { expiresIn: '24h' });
                     res.status(200).json({
-                        userId: user._id,
+                        userId: user.id,
                         token: token
                     });
                 }
@@ -65,7 +65,7 @@ exports.logIn = (req, res, next) => {
 
 //Delete User Account
 exports.deleteAccount = (req, res, next) => {
-    User.findOne({ where: { id: req.body.id } }).then(
+    User.findOne({ where: { id: req.params.id } }).then(
         (user) => {
             if (!user) {
                 return res.status(404).json({
@@ -77,6 +77,14 @@ exports.deleteAccount = (req, res, next) => {
                     error: new Error('Unauthorized request!')
                 });
             }
+            User.deleteOne({ where: { id: req.params.id } })
+                .then(() => {
+                    res.status(200).json({ message: ' User Account Delected Successfully!' });
+                }
+                ).catch((error) => {
+                    res.status(400).json({ error: error });
+                }
+                );
         }
     );
 };
