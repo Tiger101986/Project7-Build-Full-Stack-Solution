@@ -44,7 +44,7 @@ exports.getOnePost = (req, res, next) => {
 
 // Display all sauce cards
 exports.getAllPosts = (req, res, next) => {
-    Post.find().then((post) => {
+    Post.findAll().then((post) => {
         res.status(200).json(post);
     }).catch(
         (error) => {
