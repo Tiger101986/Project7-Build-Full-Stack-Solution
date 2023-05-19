@@ -1,3 +1,4 @@
+//Connect database postgres sequelize 
 const {Sequelize} = require ('sequelize');
 const database = process.env.DB_NAME;
 const username = process.env.DB_USERNAME;

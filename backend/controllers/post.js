@@ -6,14 +6,14 @@ const Post = require('../models/post');
 exports.createPost = (req, res, next) => {
     let parsePost;
     let imageUrl = null;
-    if ( req.file ) {
+    if (req.file) {
         const url = req.protocol + '://' + req.get('host');
         imageUrl = url + '/images/' + req.file.filename,
-        parsePost = JSON.parse(req.body.post);
-    }else{
+            parsePost = JSON.parse(req.body.post);
+    } else {
         parsePost = req.body;
     }
-    
+
     const post = new Post({
         userId: parsePost.userId,
         contents: parsePost.contents,
@@ -29,7 +29,7 @@ exports.createPost = (req, res, next) => {
         .catch(
             (error) => {
                 res.status(400).json({
-                    error: error
+                    error: error.message || error
                 });
             }
         );
@@ -44,7 +44,7 @@ exports.getOnePost = (req, res, next) => {
     }).catch(
         (error) => {
             res.status(400).json({
-                error: error
+                error: error.message || error
             });
         }
     );
@@ -57,13 +57,13 @@ exports.getAllPosts = (req, res, next) => {
     }).catch(
         (error) => {
             res.status(400).json({
-                error: error
+                error: error.message || error
             });
         }
     );
 }
 
-// Updating sauce card wiht likes/dislikes status from users
+// Updating post card wiht read post status from users
 exports.read = (req, res, next) => {
     let readedPost = req.body.readedPost;
     let userId = req.body.userId;
@@ -71,12 +71,16 @@ exports.read = (req, res, next) => {
         if (readedPost === 1) {
             if (!post.usersRead.includes(userId)) {
                 post.usersRead.push(userId);
-
             }
         }
-
-        Post.updateOne({ id: req.params.id }, post).then(() => {
+        Post.update(req.body, { where: { id: req.params.id } }, post).then(() => {
             res.status(201).json({ message: 'Post updated successfully.' })
-        })
-    })
+        }).catch(
+            (error) => {
+                res.status(400).json({
+                    error: error.message || error
+                });
+            }
+        );
+    });
 } 

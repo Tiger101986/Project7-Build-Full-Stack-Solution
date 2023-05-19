@@ -15,7 +15,7 @@ exports.signUp = (req, res, next) => {
             res.status(201).json({ message: 'User added successfully!' });
         }).catch(
             (error) => {
-                res.status(500).json({ error: error });
+                res.status(500).json({ error: error.message || error });
             }
         );
     })
@@ -27,14 +27,14 @@ exports.logIn = (req, res, next) => {
         (user) => {
             if (!user) {
                 return res.status(401).json({
-                    error: new Error('User not found!')
+                    error: "User not found!"
                 });
             }
             bcrypt.compare(req.body.password, user.password).then(
                 (valid) => {
                     if (!valid) {
                         return res.status(401).json({
-                            error: new Error('Incorrent password!')
+                            error: "Incorrect password!"
                         });
                     }
                     const token = jsonwebtoken.sign(
@@ -49,7 +49,7 @@ exports.logIn = (req, res, next) => {
             ).catch(
                 (error) => {
                     res.status(500).json({
-                        error: error
+                        error: error.message || error
                     });
                 }
             );
@@ -57,7 +57,7 @@ exports.logIn = (req, res, next) => {
     ).catch(
         (error) => {
             res.status(500).json({
-                error: error
+                error: error.message || error
             });
         }
     );
