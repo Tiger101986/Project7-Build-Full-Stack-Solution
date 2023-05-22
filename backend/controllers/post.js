@@ -65,16 +65,15 @@ exports.getAllPosts = (req, res, next) => {
 
 // Updating post card wiht read post status from users
 exports.read = (req, res, next) => {
-    let readedPost = req.body.readedPost;
     let userId = req.body.userId;
     Post.findOne({ where: { id: req.params.id } }).then(post => {
-        if (readedPost === 1) {
-            if (!post.usersRead.includes(userId)) {
-                post.usersRead.push(userId);
-            }
+        let { usersRead } = post;
+        if (!usersRead.includes(userId)) {
+            usersRead = [...usersRead, userId];
         }
-        Post.update(req.body, { where: { id: req.params.id } }, post).then(() => {
-            res.status(201).json({ message: 'Post updated successfully.' })
+
+        post.update({ usersRead }).then(() => {
+            post.save().then(() => res.status(201).json({ message: 'Post updated successfully.' }))
         }).catch(
             (error) => {
                 res.status(400).json({

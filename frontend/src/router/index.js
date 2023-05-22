@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/Home.vue'
-import PostView from '../views/Post-View.vue'
+import HomeView from '../views/HomePage.vue'
+import PostView from '../views/PostPage.vue'
 import SignUpPage from '../views/SignUpPage.vue'
-import LoginView from '../views/LogIn.vue'
+import LoginView from '../views/LogInPage.vue'
 const routes = [
   {
     path: '/',

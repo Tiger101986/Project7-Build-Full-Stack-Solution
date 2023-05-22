@@ -1,8 +1,8 @@
 <template>
   <nav>
     <router-link to="/"> Home </router-link> |
-    <router-link to="/post"> Post </router-link>
-    <router-link to="/signup"> Signup </router-link>
+    <router-link to="/post"> Post </router-link> |
+    <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link>
   </nav>
   <router-view/>
@@ -22,6 +22,7 @@ nav {
 }
 
 nav a {
+  font-size: 18px;
   font-weight: bold;
   color: #2c3e50;
 }
