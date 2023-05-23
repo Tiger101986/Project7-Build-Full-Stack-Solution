@@ -5,7 +5,7 @@
     <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link>
   </nav>
-  <router-view/>
+  <router-view/> 
 </template>
 
 <style>

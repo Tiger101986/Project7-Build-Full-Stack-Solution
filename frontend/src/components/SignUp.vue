@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form method="post">
     <input
       type="email"
       placeholder="Enter Email"
@@ -12,7 +12,7 @@
       v-model="users.password"
       require
     />
-    <button @click.prevent="signUp" type="submit">SignUp</button>
+    <button @click="onSubmit" type="submit">SignUp</button>
   </form>
 </template>
 
@@ -28,8 +28,18 @@ export default {
     };
   },
   methods: {
-    signUp() {
-      console.log("Hello World");
+    //use fetch() sending user signup data to server to save in database
+    onSubmit() {
+      fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: this.emial,
+          password: this.password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
     },
   },
 };
@@ -53,7 +63,7 @@ form input {
 }
 form button {
   font-size: 18px;
-  background-color: rgb(135, 235, 193);
+  /* background-color: rgb(135, 235, 193); */
   width: 470px;
   height: 45px;
   margin: auto;

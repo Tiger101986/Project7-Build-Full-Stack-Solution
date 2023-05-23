@@ -2,7 +2,7 @@
   <form>
     <input type="email" placeholder="Enter Email" v-model="users.email" required />
     <input type="password" placeholder="Enter Password" v-model="users.password" require />
-    <button>Log In</button>
+    <button >Log In</button>
   </form>
 </template>
 <script>
