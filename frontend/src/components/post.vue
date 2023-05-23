@@ -6,7 +6,15 @@
       placeholder="Enter Contents"
       v-model="posts.content"
     />
-    <p><a> Image </a></p>
+    <div class="file">
+      <input
+        style="display: none"
+        name="file" 
+        type="file" 
+        ref="fileInput" 
+        @change="onSelectFile()">
+      <button @click="$refs.fileInput.click();"> Choose Image </button>
+    </div>  
     <button type="submit">Post Content!</button>
   </div>
 </template>
@@ -23,14 +31,17 @@ export default {
     };
   },
   methods: {
+    onSelectFile(e) {
+      this.posts.imgageUrl = e.target.files[0];
+    },
     postContents(e) {
       e.preventDefault();
-      fetch("http://localhost:8080/api/auth/signup", {
+      fetch("http://localhost:3000/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          content: this.content,
-          imgageUrl: this.imgageUrl
+          content: this.posts.content,
+          imgageUrl: this.posts.imgageUrl
         }),
       })
         .then((response) => response.json())
@@ -56,12 +67,13 @@ div input {
 ::placeholder {
   font-size: 20px;
 }
-div p {
+.file {
   width: 70px;
   height: 30px;
   color: blue;
   border: 1px solid blue;
   padding-top: 7px;
+  margin-top: 30px;
 }
 div button {
   font-size: 16px;
