@@ -24,6 +24,7 @@
 
 <!-- Create signup properties and send to database -->
 <script>
+
 export default {
   name: "SignUp",
   data() {
@@ -54,21 +55,26 @@ export default {
       }
     }, */
     
-    //use fetch() sending user signup data to server to save in database
-    onSubmit(e) {
-      e.preventDefault();
+    //use fetch() sending user signup to home page and database to save data
+    onSubmit() {
+      /* e.preventDefault(); */
       fetch("http://localhost:3000/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: this.users.emial,
-          password: this.users.password,
+          email: this.users.email,
+          password: this.users.password
         }),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
-    },
+        .then((data) => {
+          localStorage.setItem("users-info", JSON.stringify(data));  
+          this.$router.push({name: 'Home'}); //router to home page
+          console.log(data)
+        });     
+    },  
   },
+
 /*   watch: {
       email(value) {
         this.posts.email = value;

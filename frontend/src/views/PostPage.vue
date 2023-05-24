@@ -1,14 +1,14 @@
 <template>
-  <PostContent />
+  <PostUp />
 </template>
 
 <script>
-import PostContent from '../components/post.vue';
+import PostUp from '../components/post.vue';
 
 export default {
   name: "PostPage",
   components: {
-    PostContent,
+    PostUp,
   },
 };
 </script>

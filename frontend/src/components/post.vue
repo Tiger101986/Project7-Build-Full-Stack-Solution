@@ -12,10 +12,10 @@
         name="file" 
         type="file" 
         ref="fileInput" 
-        @change="onSelectFile()">
+        @change="onSelectFile">
       <button @click="$refs.fileInput.click();"> Choose Image </button>
     </div>  
-    <button type="submit">Post Content!</button>
+    <button class="btn" @click.prevent="postContents" type="submit">Post Content!</button>
   </div>
 </template>
 
@@ -34,9 +34,11 @@ export default {
     onSelectFile(e) {
       this.posts.imgageUrl = e.target.files[0];
     },
-    postContents(e) {
-      e.preventDefault();
-      fetch("http://localhost:3000/api/posts", {
+    // Create single post 
+    postContents() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');  
+      fetch("http://localhost:3000/api/posts/" + id, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -45,13 +47,16 @@ export default {
         }),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+          localStorage.setItem("users-info", JSON.stringify(data));  
+          this.$router.push({name: 'Home'}); //router to home page
+          console.log(data)});
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .posts {
   display: flex;
   flex-direction: column;
@@ -67,20 +72,24 @@ div input {
 ::placeholder {
   font-size: 20px;
 }
-.file {
-  width: 70px;
+.file button{
+  width: 150px;
   height: 30px;
-  color: blue;
-  border: 1px solid blue;
-  padding-top: 7px;
+  padding: 10px auto 20px;
   margin-top: 30px;
+  position: absolute;
+  bottom: 550px;
+  left: 70px;
 }
-div button {
-  font-size: 16px;
-  width: 120px;
-  height: 50px;
-  /*     background-color: white;
- */ /* color: blue; */
+div .btn {
+  position: absolute;
+  left: 250px;
+  bottom: 550px;
+  width: 150px;
+  height: 30px;
+  margin-top: 20px;
+  /* background-color: white; */
+ color: blue;
   /* border: 1px solid blue; */
 }
 </style>
