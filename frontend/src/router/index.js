@@ -3,6 +3,7 @@ import HomeView from '../views/HomePage.vue'
 import PostView from '../views/PostPage.vue'
 import SignUpPage from '../views/SignUpPage.vue'
 import LoginView from '../views/LogInPage.vue'
+import ProfileView from '../views/ProfilePage.vue'
 const routes = [
   {
     path: '/',
@@ -27,7 +28,12 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginView
-  }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView
+  },
 ]
 
 const router = createRouter({

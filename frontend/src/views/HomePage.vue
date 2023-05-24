@@ -1,19 +1,18 @@
 <template>
   <div class="home">
     <img alt="Groupomania-logo" src="/images/icon-above-font.png">
-    
+    <HomeUp />
     
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import Signup from '@/components/sign-up.vue'
+import HomeUp from '../components/HomeIn.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    
+    HomeUp,
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="posts" @submit="postContents" method="post">
+  <div class="posts" method="post">
     <input
       type="text"
       name="contents"
@@ -13,7 +13,7 @@
         type="file" 
         ref="fileInput" 
         @change="onSelectFile">
-      <button @click="$refs.fileInput.click();"> Choose Image </button>
+      <button @click="$refs.fileInput.click()"> Choose Image </button>
     </div>  
     <button class="btn" @click.prevent="postContents" type="submit">Post Content!</button>
   </div>
@@ -25,25 +25,25 @@ export default {
   data() {
     return {
       posts: {
+        userId: "",
         content: "",
-        imgageUrl: "",
+        imageUrl: "",
       },
     };
   },
   methods: {
     onSelectFile(e) {
-      this.posts.imgageUrl = e.target.files[0];
+      this.posts.imageUrl = e.target.files[0];
     },
-    // Create single post 
-    postContents() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');  
-      fetch("http://localhost:3000/api/posts/" + id, {
+    // Create post 
+    postContents() { 
+      fetch("http://localhost:3000/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          userId: this.posts.userId,
           content: this.posts.content,
-          imgageUrl: this.posts.imgageUrl
+          imageUrl: this.posts.imageUrl
         }),
       })
         .then((response) => response.json())
