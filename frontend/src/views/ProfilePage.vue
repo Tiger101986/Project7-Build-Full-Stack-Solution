@@ -1,6 +1,6 @@
 <template>
     <div v-for="user in users " :key="user">
-        <input> emalil : {{ user.email }} />
+        <p> emalil : {{ user.email }} </p>
         <p> password: {{ user.password }} </p>
         <button @click="deleteUser" type="submit"> Delete </button>
     </div>
@@ -35,7 +35,7 @@ export default {
                 .then((response) => response.json())
                 .then((data) => {
                 localStorage.setItem("UserProfile", JSON.stringify(data));  
-                this.$router.push({name: 'SignUp'}); //router to home page
+                this.$router.push({name: 'SignUp'}); //router to signup page
                 console.log(data)});
         }
     }

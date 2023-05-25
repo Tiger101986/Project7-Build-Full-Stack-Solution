@@ -20,7 +20,7 @@
             getPost(){
                 fetch("http://localhost:3000/api/posts")
                 .then( response => response.json())
-                .then( data => { this.post = data;
+                .then( data => { this.posts = data;
                      console.log(data);})
             }
         }

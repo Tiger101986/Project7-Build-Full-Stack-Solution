@@ -25,7 +25,6 @@ export default {
   data() {
     return {
       posts: {
-        userId: "",
         content: "",
         imageUrl: "",
       },
@@ -39,9 +38,10 @@ export default {
     postContents() { 
       fetch("http://localhost:3000/api/posts", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Authorization": "Bearer" + this.token,
+          "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: this.posts.userId,
           content: this.posts.content,
           imageUrl: this.posts.imageUrl
         }),
