@@ -39,7 +39,7 @@ export default {
       fetch("http://localhost:3000/api/posts", {
         method: "POST",
         headers: { 
-          "Authorization": "Bearer" + this.token,
+          "Authorization": `Bearer ${this.token}`,
           "Content-Type": "application/json" },
         body: JSON.stringify({
           content: this.posts.content,
@@ -50,7 +50,8 @@ export default {
         .then((data) => {
           localStorage.setItem("users-info", JSON.stringify(data));  
           this.$router.push({name: 'Home'}); //router to home page
-          console.log(data)});
+          console.log(data);
+        })
     },
   },
 };

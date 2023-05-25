@@ -1,6 +1,6 @@
 <template>
     <div @click="getPost"> 
-        Home
+        
     </div>
     <div v-for="post in posts" :key="post">
         <p> {{ post.contents }} </p>
