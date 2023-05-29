@@ -35,8 +35,7 @@ export default {
         fetch("http://localhost:3000/api/posts", {
           method: 'post',
           headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+            "Authorization": `Bearer ${token}`,  
           },
           body: formData
         })
@@ -55,7 +54,8 @@ export default {
         fetch("http://localhost:3000/api/posts", {
           method: 'post',
           headers: {
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             userId,
