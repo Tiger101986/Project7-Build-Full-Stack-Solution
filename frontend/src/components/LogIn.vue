@@ -42,7 +42,13 @@ export default {
           password: this.users.password
         })
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if ( response.status !== 200) {
+            throw response.status;
+          }else {
+            return response.json();
+          }
+        })
         .then((data) => {
           localStorage.setItem("users-info", JSON.stringify(data));  
           this.$router.push({name: 'Home'});

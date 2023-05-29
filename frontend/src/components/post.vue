@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       posts: {
+        userId: "",
         content: "",
         imageUrl: "",
       },
@@ -36,22 +37,67 @@ export default {
     },
     // Create post 
     postContents() { 
-      fetch("http://localhost:3000/api/posts", {
-        method: "POST",
-        headers: { 
-          "Authorization": `Bearer ${this.token}`,
-          "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: this.posts.content,
-          imageUrl: this.posts.imageUrl
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          localStorage.setItem("users-info", JSON.stringify(data));  
-          this.$router.push({name: 'Home'}); //router to home page
-          console.log(data);
+      const formData = new FormData();
+      formData.append("Posts", this.posts.content);
+      formData.append("image", this.posts.imageUrl);
+      const token = JSON.parse(localStorage.getItem("users-info")).token;
+      if( formData ) {
+        fetch("http://localhost:3000/api/posts", {
+          method: 'post',
+          headers: { 
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: this.posts.userId,
+            /* content: this.posts.content, */
+          }), formData
         })
+          .then((response) => response.json())
+          .then((data) => {
+            localStorage.setItem("posts-info", JSON.stringify(data));  
+            this.$router.push({name: 'Home'}); //router to home page
+            console.log(data);
+          })
+      } else {
+          fetch("http://localhost:3000/api/posts", {
+            method: 'post',
+            headers: { 
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: this.posts.userId,
+              content: this.posts.content,
+            })
+          })
+            .then((response) => {
+              if ( response.status !== 201) {
+                throw response.status;
+              }else {
+                return response.json()
+              }
+            })
+            .then((data) => {
+              localStorage.setItem("posts-info", JSON.stringify(data));  
+              this.$router.push({name: 'Home'}); //router to home page
+              console.log(data);
+            }).catch( error => { 
+              console.log(error); 
+            })
+      }
+      
+        /* const orderData = {
+            method: 'post',
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${this.token}`, },
+            body: JSON.stringify({}),
+        };
+        fetch('http://localhost:3000/api/products/order', orderData)
+            .then((response) => response.json())
+            .then((data) => {
+                let confirmationUrl = './confirmation.html?orderedId=' + data.orderId;
+                window.location.href = confirmationUrl;
+                localStorage.clear();
+            })
+            .catch(error => console.log(error));   */
     },
   },
 };
@@ -66,6 +112,7 @@ export default {
   padding: 30px;
 }
 div input {
+  width: auto;
   height: 300px;
   text-align: center;
   /* border: 1px solid blue; */
@@ -79,13 +126,13 @@ div input {
   padding: 10px auto 20px;
   margin-top: 30px;
   position: absolute;
-  bottom: 550px;
-  left: 70px;
+  /* bottom: 475px; */
+  left: 68px;
 }
 div .btn {
   position: absolute;
   left: 250px;
-  bottom: 550px;
+  bottom: -31px;
   width: 150px;
   height: 30px;
   margin-top: 20px;

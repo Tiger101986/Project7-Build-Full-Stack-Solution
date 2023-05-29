@@ -69,7 +69,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           localStorage.setItem("users-info", JSON.stringify(data));  
-          this.$router.push({name: 'Home'}); //router to home page
+          this.$router.push({name: 'Login'}); //router to home page
           console.log(data)
         });     
     },  
@@ -99,9 +99,9 @@ form input {
   border: 1px solid black;
 }
 form button {
-  font-size: 18px;
+  font-size: 15px;
   /* background-color: rgb(135, 235, 193); */
-  width: 470px;
+  width: 450px;
   height: 45px;
   margin: auto;
   border: 1px solid black;
