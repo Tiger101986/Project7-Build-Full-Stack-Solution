@@ -2,7 +2,7 @@
   <div class="posts" method="post">
     <input type="text" name="contents" placeholder="Enter Contents" v-model="post.contents" />
     <div class="file">
-      <input style="display: none" name="file" type="file" ref="fileInput" @change="onSelectFile">
+      <input name="file" type="file" ref="fileInput" @change="onSelectFile">
       <button @click="$refs.fileInput.click()"> Choose Image </button>
     </div>
     <button class="btn" @click.prevent="postContents" type="submit">Post Content!</button>
@@ -36,12 +36,17 @@ export default {
           method: 'post',
           headers: {
             "Authorization": `Bearer ${token}`,
-            'Accept': 'application/json',
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "application/json"
           },
           body: formData
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status !== 201) {
+              throw response.status;
+            } else {
+              return response.json()
+            }
+          })
           .then((data) => {
             this.$router.push({ name: 'Home' }); //router to home page
             console.log(data);
@@ -50,8 +55,7 @@ export default {
         fetch("http://localhost:3000/api/posts", {
           method: 'post',
           headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+            "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({
             userId,
@@ -109,6 +113,10 @@ div input {
 
 ::placeholder {
   font-size: 20px;
+}
+
+.file input {
+  display: none;
 }
 
 .file button {
