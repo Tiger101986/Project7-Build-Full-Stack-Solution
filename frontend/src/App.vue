@@ -5,6 +5,7 @@
     <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link> |
     <router-link to="/profile"> Profile </router-link>
+    <router-link to="/post/:id"></router-link> |
   </nav>
   <router-view/> 
 </template>
@@ -16,6 +17,10 @@
   padding: 0;
 }
 body{
+  background-image: url("../public/images/icon-above-font.png");
+  background-repeat: no-repeat;
+  background-position: fixed;
+  background-position-x: center;
   position: relative;
   min-width: 315px;
 }

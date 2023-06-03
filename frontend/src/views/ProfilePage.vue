@@ -1,7 +1,7 @@
 <template>
-    <div >
-        <p> User Id : {{ userId }} </p>
-        <button @click="deleteUser" type="submit"> Delete </button>
+    <div>
+        <p> User Id : {{ user.id }} </p>
+        <button @submit.prevent="deleteUser" type="submit"> Delete </button>
     </div>
 </template>
 
@@ -10,38 +10,37 @@
 export default {
     name: "ProfileUser",
     data() {
-        return{
-            userId: ''
-        }   
+        return {
+            user: null
+        }
     },
     methods: {
-        getUser() {
-            let userInfo = JSON.parse(localStorage.getItem("users-info")) || [];
-            if ( userInfo.length !== 0) {
-                    return this.userId = userInfo;
-                }
-            }
-        },
         deleteUser() {
-            const { token} = JSON.parse(localStorage.getItem("users-info"));
-            fetch("http://localhost:3000/api/auth/", {
+            const { token } = JSON.parse(localStorage.getItem("users-info"));
+            fetch("http://localhost:3000/api/auth/" + this.id, {
                 method: "delete",
-                headers: { 
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json" },
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             })
                 .then((response) => response.json())
-                .then((data) => { console.log(data)
-                this.$router.push({name: 'SignUp'}); //router to signup page
+                .then((data) => {
+                    this.user = data;
+                    console.log(data);
+                    this.$router.push({ name: 'SignUp' }); //router to signup page
                 })
         }
+    },
+    mounted() {
+        this.deleteUser;
     }
+}
 </script>
 
 <style scoped>
-    button {
-        width: 100px;
-        height: 30px;
-        margin-top: 30px;
-    }
+button {
+    width: 100px;
+    height: 30px;
+    margin-top: 30px;
+}
 </style>

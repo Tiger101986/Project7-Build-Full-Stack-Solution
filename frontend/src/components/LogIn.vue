@@ -1,22 +1,9 @@
 <template>
   <form method="post">
-    <input
-      id="email"
-      name="email"
-      type="email"
-      placeholder="Enter Email"
-      v-model="users.email"
-      required
-    />
-   <!--  <p style="{color: 'red'}"> {{ posts.errorMessage }}</p> -->
-    <input
-      id="password"
-      name="password"
-      type="password"
-      placeholder="Enter Password"
-      v-model="users.password"
-      require
-    />
+    <input id="email" name="email" type="email" placeholder="Enter Email" v-model="users.email" @input="validateEmail" required />
+    <p v-if="errors.email"> {{ errors.email }}</p>
+    <input id="password" name="password" type="password" placeholder="Enter Password" v-model="users.password" @input="validatePassword" require />
+    <p v-if="errors.password"> {{ errors.password }}</p>
     <button @click.prevent="onSubmit" type="submit">LogIn</button>
   </form>
 </template>
@@ -25,14 +12,25 @@ export default {
   name: "LogIn",
   data() {
     return {
-      users : {
+      users: {
         email: '',
         password: ''
-      }  
+      },
+      errors: {
+        email: '',
+        password: ''
+      }
     }
   },
   methods: {
     //login to home page
+    validateEmail() {
+      const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+      this.errors.email = regex.test(this.email) ? "" : "Invalid email address.";
+    },
+    validatePassword() {
+
+    },
     onSubmit() {
       fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
@@ -43,19 +41,19 @@ export default {
         })
       })
         .then((response) => {
-          if ( response.status !== 200) {
+          if (response.status !== 200) {
             throw response.status;
-          }else {
+          } else {
             return response.json();
           }
         })
         .then((data) => {
-          localStorage.setItem("users-info", JSON.stringify(data));  
-          this.$router.push({name: 'Home'});
+          localStorage.setItem("users-info", JSON.stringify(data));
+          this.$router.push({ name: 'Home' });
           console.log(data)
-        });       
+        });
     },
   }
-}  
+}
 
 </script>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomePage.vue'
 import PostView from '../views/PostPage.vue'
+import SinglePage from '../views/SinglePage.vue'
 import SignUpPage from '../views/SignUpPage.vue'
 import LoginView from '../views/LogInPage.vue'
 import ProfileView from '../views/ProfilePage.vue'
@@ -20,6 +21,11 @@ const routes = [
     //component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
+    path: '/:id',
+    name: 'SinglePost',
+    component: SinglePage
+  },
+  {
     path: '/signup',
     name: 'SignUpPage',
     component: SignUpPage
@@ -34,6 +40,7 @@ const routes = [
     name: 'Profile',
     component: ProfileView
   },
+  
 ]
 
 const router = createRouter({

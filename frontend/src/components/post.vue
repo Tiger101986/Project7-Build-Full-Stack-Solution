@@ -140,4 +140,9 @@ div .btn {
   color: blue;
   /* border: 1px solid blue; */
 }
+/* @media (max-width: 991.98px) {
+	.file button {
+		left: 35px;
+	}
+} */
 </style>
