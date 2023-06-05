@@ -69,7 +69,7 @@ export default {
               return response.json()
             }
           })
-          .then((data) => {
+          .then((data) => { 
             this.$router.push({ name: 'Home' }); //router to home page
             console.log(data);
           }).catch(error => {

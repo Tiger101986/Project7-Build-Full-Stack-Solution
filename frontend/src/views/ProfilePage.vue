@@ -1,39 +1,27 @@
 <template>
-    <div>
-        <p> User Id : {{ user.id }} </p>
-        <button @submit.prevent="deleteUser" type="submit"> Delete </button>
-    </div>
+    <button @click.prevent="deleteUser" type="submit"> Delete </button>
 </template>
 
 <script>
 
 export default {
     name: "ProfileUser",
-    data() {
-        return {
-            user: null
-        }
-    },
     methods: {
         deleteUser() {
             const { token } = JSON.parse(localStorage.getItem("users-info"));
-            fetch("http://localhost:3000/api/auth/" + this.id, {
+            fetch(`http://localhost:3000/api/auth/${this.$route.params.id}`, {
                 method: "delete",
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             })
                 .then((response) => response.json())
-                .then((data) => {
-                    this.user = data;
-                    console.log(data);
+                .then(() => {
                     this.$router.push({ name: 'SignUp' }); //router to signup page
                 })
         }
     },
-    mounted() {
-        this.deleteUser;
-    }
+
 }
 </script>
 

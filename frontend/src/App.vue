@@ -1,11 +1,12 @@
 <template>
+  <img id="company-logo" alt="Groupomania-logo" src="/images/icon-left-font.png"/> 
   <nav>
     <router-link to="/"> Home </router-link> |
     <router-link to="/post"> Post </router-link> |
     <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link> |
     <router-link to="/profile"> Profile </router-link>
-    <router-link to="/post/:id"></router-link> |
+    <router-link to="/:id"></router-link> |
   </nav>
   <router-view/> 
 </template>
@@ -17,12 +18,14 @@
   padding: 0;
 }
 body{
-  background-image: url("../public/images/icon-above-font.png");
+  /* background-image: url("../public/images/icon-above-font.png");
   background-repeat: no-repeat;
   background-position: fixed;
-  background-position-x: center;
+  background-position-x: center; */
   position: relative;
-  min-width: 315px;
+  min-width: 375px;
+  /* margin: 0 10px 20px 10px; */
+  margin: 20px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -30,6 +33,10 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+#company-logo {
+  width: 300px;
+  margin: -100px 0 -120px;
 }
 
 nav {

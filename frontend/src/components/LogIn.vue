@@ -26,7 +26,7 @@ export default {
     //login to home page
     validateEmail() {
       const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-      this.errors.email = regex.test(this.email) ? "" : "Invalid email address.";
+      this.errors.email = regex.test(this.users.email) ? "" : "Invalid email address.";
     },
     validatePassword() {
 

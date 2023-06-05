@@ -1,23 +1,12 @@
 <!-- Create singup template -->
 <template>
   <form method="post">
-    <input
-      id="email"
-      name="email"
-      type="email"
-      placeholder="Enter Email"
-      v-model="users.email"
-      required
-    />
-   <!--  <p style="{color: 'red'}"> {{ posts.errorMessage }}</p> -->
-    <input
-      id="password"
-      name="password"
-      type="password"
-      placeholder="Enter Password"
-      v-model="users.password"
-      require
-    />
+    <input id="email" name="email" type="email" placeholder="Enter Email" v-model="users.email" @input="emailValidation"
+      required />
+    <p v-if="errors.email"> {{ errors.email }}</p>
+    <input id="password" name="password" type="password" placeholder="Enter Password" v-model="users.password"
+      @input="passwordValidation" require />
+    <p v-if="errors.password"> {{ errors.password }}</p>
     <button @click.prevent="onSubmit" type="submit">SignUp</button>
   </form>
 </template>
@@ -32,55 +21,50 @@ export default {
       users: {
         email: "",
         password: "",
+      },
+      errors: {
+        email: '',
+        password: ''
       }
-      /* [ 
-          { message:'One lowercase letter required.', regex:/[a-z]+/ },
-          { message:"One uppercase letter required.",  regex:/[A-Z]+/ },
-          { message:"8 characters minimum.", regex:/.{8,}/ },
-          { message:"One number required.", regex:/[0-9]+/ },],    */
-        
-       /*  errorMessage: "",
-        validateEmail: '',
-        validatePassword: '' */
-      }
+    }
   },
   methods: {
-  /*   validatedEmail(email){
-      if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        this.posts.errorMessage = '';
-        this.posts.validateEmail = true;
-      }else {
-        this.errorMessage = "Email invalid";
-        this.posts.validateEmail = true;
-      }
-    }, */
-    
+    emailValidation() {
+      const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+      this.errors.email = emailRegex.test(this.users.email) ? "" : "Invalid email address.";
+    },
+    passwordValidation() {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      this.errors.password = passwordRegex.test(this.users.password) ? "" : "Invalid password: Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
+
+    },
+
     //use fetch() sending user signup to home page and database to save data
     onSubmit() {
-      /* e.preventDefault(); */
-      fetch("http://localhost:3000/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: this.users.email,
-          password: this.users.password
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          localStorage.setItem("users-info", JSON.stringify(data));  
-          this.$router.push({name: 'Login'}); //router to home page
-          console.log(data)
-        });     
-    },  
-  },
+      this.emailValidation()
+      this.passwordValidation()
 
-/*   watch: {
-      email(value) {
-        this.posts.email = value;
-        this.validateEmail(value);
+      if (this.emailValidation && this.passwordValidation) {
+        fetch("http://localhost:3000/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: this.users.email,
+            password: this.users.password
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            localStorage.setItem("users-info", JSON.stringify(data));
+            this.$router.push({ name: 'Login' }); //router to home page
+            console.log(data)
+          });
+      } else {
+        alert('Please properly fill out the form');
       }
-  } */
+
+    },
+  },
 };
 </script>
 
@@ -88,8 +72,9 @@ export default {
 form {
   width: 50%;
   margin-left: 25%;
+  margin-top: 50px;
 }
- 
+
 form input {
   display: block;
   width: 450px;
@@ -98,6 +83,7 @@ form input {
   margin: 30px auto;
   border: 1px solid black;
 }
+
 form button {
   font-size: 15px;
   /* background-color: rgb(135, 235, 193); */

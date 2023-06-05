@@ -3,8 +3,8 @@
   <!-- /images/icon-above-font.png -->
 
   <h1> Wellcome to Groupomania Teams! </h1>
-  <div v-if="posts.length">
-    <div class="home" v-for="post in posts" :key="post.id">
+  <div class="home-column" v-if="posts.length">
+    <div class="homePost" v-for="post in posts" :key="post.id">
       <router-link :to="{
         name: 'SinglePost',
         params: { id: post.id }
@@ -45,9 +45,13 @@ export default {
 </script>
 
 <style scoped>
-.home {
+.home-column {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+}
+.homePost {
   position: relative;
-  background-image: "/images/icon-left-font.png";
   width: 300px;
   height: 300px;
   border: 1px solid saddlebrown;
@@ -55,11 +59,13 @@ export default {
   margin-top: 50px;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.home img {
-  width: 200px;
-  height: 200px;
+.homePost img {
+  width: 300px;
+  height: 300px;
   position: absolute;
   left: 30px;
   top: 70px;
