@@ -65,7 +65,7 @@ exports.logIn = (req, res, next) => {
 
 //Delete User Account
 exports.deleteAccount = (req, res, next) => {
-    User.findOne({ where: { id: req.params.id } }).then(
+    User.findOne({ where: { id: req.params.userId } }).then(
         (user) => {
             if (!user) {
                 return res.status(404).json({
@@ -77,7 +77,7 @@ exports.deleteAccount = (req, res, next) => {
                     error: 'Unauthorized request!'
                 });
             }
-            User.destroy({ where: { id: req.params.id } })
+            User.destroy({ where: { id: req.params.userId } })
                 .then(() => {
                     res.status(200).json({ message: ' User Account Delected Successfully!' });
                 }

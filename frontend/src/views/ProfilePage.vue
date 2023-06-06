@@ -8,16 +8,23 @@ export default {
     name: "ProfileUser",
     methods: {
         deleteUser() {
-            const { token } = JSON.parse(localStorage.getItem("users-info"));
-            fetch(`http://localhost:3000/api/auth/${this.$route.params.id}`, {
+            const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
+            fetch(`http://localhost:3000/api/auth/${userId}`, {
                 method: "delete",
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (response.status !== 204) {
+                        throw response.status;
+                    } else {
+                        return response.json()
+                    }
+                })
                 .then(() => {
-                    this.$router.push({ name: 'SignUp' }); //router to signup page
+                    localStorage.removeItem("users-info")
+                    this.$router.push({ name: 'SignUpPage' }); //router to signup page
                 })
         }
     },

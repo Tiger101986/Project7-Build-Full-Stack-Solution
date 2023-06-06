@@ -5,12 +5,18 @@
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
     <div class="homePost" v-for="post in posts" :key="post.id">
-      <router-link :to="{
+      <router-link class="homePost-link" :to="{
         name: 'SinglePost',
         params: { id: post.id }
       }">
-        <p> {{ post.contents }} </p>
-        <img :src="post.imageUrl" alt="" />
+        <p class="homePost-content"> {{ post.contents }} </p>
+        <img class="homePost-image" v-if="extention = '.png' || '.jpg' || '.jpng' || '.tiff' || '.gif' || '.jfif'" :src="post.imageUrl" alt="" />
+        <video v-esle-if="extention = '.mp4' || '.ogg'" controls autoplay muted>
+          <source :src="post.imageUrl" type="">
+        </video>
+        <audio v-esle-if="extention = '.mpeg' || '.ogg'" controls autoplay muted>
+          <source :src="post.imageUrl" type="">
+        </audio>
       </router-link>
     </div>
   </div>
@@ -45,29 +51,38 @@ export default {
 </script>
 
 <style scoped>
-.home-column {
+div .home-column {
   display: flex;
-  flex-wrap: wrap;
-  /* justify-content: center; */
-}
-.homePost {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  border: 1px solid saddlebrown;
-  margin-left: 30px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex-direction: column;
+  
 }
 
-.homePost img {
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  left: 30px;
-  top: 70px;
+.homePost {
+  width: 45%;
+  height: auto;
+  border: 1px solid saddlebrown;
+  border-radius: 10px;
+  margin-left: 27.5%;
+  margin-top: 50px;
+  box-shadow: 5px 5px 5px lightgray;
 }
-</style>
+
+.homePost-content {
+  padding: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.homePost-image {
+  width: 100%;
+  height: auto;
+  object-fit: co;
+  border-radius: 0 0px 10px 10px;
+  /* position: relative; */
+}
+
+.homePost-link {
+  color: black;
+  text-decoration: none;
+}</style>

@@ -35,7 +35,7 @@ export default {
         fetch("http://localhost:3000/api/posts", {
           method: 'post',
           headers: {
-            "Authorization": `Bearer ${token}`,  
+            "Authorization": `Bearer ${token}`,
           },
           body: formData
         })
@@ -69,27 +69,13 @@ export default {
               return response.json()
             }
           })
-          .then((data) => { 
+          .then((data) => {
             this.$router.push({ name: 'Home' }); //router to home page
             console.log(data);
           }).catch(error => {
             console.log(error);
           })
       }
-
-      /* const orderData = {
-          method: 'post',
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${this.token}`, },
-          body: JSON.stringify({}),
-      };
-      fetch('http://localhost:3000/api/products/order', orderData)
-          .then((response) => response.json())
-          .then((data) => {
-              let confirmationUrl = './confirmation.html?orderedId=' + data.orderId;
-              window.location.href = confirmationUrl;
-              localStorage.clear();
-          })
-          .catch(error => console.log(error));   */
     },
   },
 };
@@ -136,10 +122,9 @@ div .btn {
   width: 150px;
   height: 30px;
   margin-top: 20px;
-  /* background-color: white; */
   color: blue;
-  /* border: 1px solid blue; */
 }
+
 /* @media (max-width: 991.98px) {
 	.file button {
 		left: 35px;

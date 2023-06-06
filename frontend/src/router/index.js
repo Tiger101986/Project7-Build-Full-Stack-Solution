@@ -9,21 +9,47 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      requiresAuth: true,
+    },
+    /* beforeEnter(to, from, next) {
+      const { userId, token } = JSON.parse(localStorage.getItem("users-info")); 
+      alert('Please login first')
+      if (to.name !== 'Login' && token) {
+        return '/login'
+      }
+    }, */
   },
   {
     path: '/post',
     name: 'Post',
-    component: PostView
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    //component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: PostView,
+    meta: {
+      requiresAuth: true,
+    },
+    /* beforeEnter(to, from, next) {
+      const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
+      alert('Please login first') 
+      if (to.name !== 'Login') {
+        return '/login'
+      }
+    }, */
   },
   {
     path: '/:id',
     name: 'SinglePost',
-    component: SinglePage
+    component: SinglePage,
+    meta: {
+      requiresAuth: true,
+    },
+    /* beforeEnter(to, from, next) {
+      const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
+      alert('Please login first')
+      if (to.name !== 'Login') {
+        return '/login'
+      }
+    }, */
   },
   {
     path: '/signup',
@@ -38,11 +64,30 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
-    component: ProfileView
+    component: ProfileView,
+    meta: {
+      requiresAuth: true,
+    },
+    /* beforeEnter(to, from, next) {
+      const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
+      alert('Please login first')
+      if (to.name !== 'Login') {
+        return '/login'
+      }
+    } */
   },
-  
 ]
-
+routes.beforeEach((to, from, next) => {
+  const user = JSON.parse(localStorage.getItem("users-info"));
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    if (user.token) {
+      next();
+    } else {
+      next({ path: '/login' });
+    }
+  }
+  next();
+});
 const router = createRouter({
   history: createWebHistory(),
   routes
