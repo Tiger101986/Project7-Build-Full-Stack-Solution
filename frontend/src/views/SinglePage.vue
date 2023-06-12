@@ -13,11 +13,10 @@ export default {
     data() {
         return {
             post: null,
-            usersRead: ''
         }
     },
     mounted() {
-        const { token } = JSON.parse(localStorage.getItem("users-info"));
+        const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
         fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
             method: 'get',
             headers: {
@@ -33,8 +32,8 @@ export default {
             headers: {
                 "Authorization": `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                usersRead: this.usersRead,
+            body: JSON.stringify({    
+                userId,
             })
         })
             .then((response) => {

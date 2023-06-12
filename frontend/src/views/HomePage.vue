@@ -98,7 +98,7 @@ div .home-column {
     font-size: 25px;
   }
 }
-@media screen and (max-width: 415px) {
+@media screen and (max-width: 615px) {
   h1 {
     font-size: 22px;
   }

@@ -85,6 +85,7 @@ export default {
 .posts {
   display: flex;
   flex-direction: column;
+  /* border: 2px solid blue; */
   margin: auto 30px;
   padding: 30px;
 }
