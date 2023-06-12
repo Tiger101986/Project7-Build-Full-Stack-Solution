@@ -49,11 +49,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 form {
-  width: 50%;
-  margin-left: 25%;
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 50px; 
 }
 
 form input {
@@ -67,7 +66,6 @@ form input {
 
 form button {
   font-size: 15px;
-  /* background-color: rgb(135, 235, 193); */
   width: 450px;
   height: 45px;
   margin: auto;

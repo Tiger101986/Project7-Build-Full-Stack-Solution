@@ -77,20 +77,23 @@ const routes = [
     } */
   },
 ]
-routes.beforeEach((to, from, next) => {
-  const user = JSON.parse(localStorage.getItem("users-info"));
-  if (to.matched.some(route => route.meta.requiresAuth)) {
-    if (user.token) {
-      next();
-    } else {
-      next({ path: '/login' });
-    }
-  }
-  next();
-});
+
 const router = createRouter({
   history: createWebHistory(),
   routes
 })
+router.beforeEach((to, from, next) => {
+  const user = JSON.parse(localStorage.getItem("users-info"));
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    if (user?.token) {
+      next();
+    } else {
+      next({ path: '/login' });
+    }
+  }else{
+    next();
+  }
+});
+
 
 export default router

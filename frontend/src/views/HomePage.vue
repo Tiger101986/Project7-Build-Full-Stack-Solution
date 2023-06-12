@@ -4,17 +4,17 @@
 
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
-    <div class="homePost" v-for="post in posts" :key="post.id">
+    <div class="homePost" v-for="post in posts" :key="post.id" @click="readPost">
       <router-link class="homePost-link" :to="{
         name: 'SinglePost',
         params: { id: post.id }
       }">
         <p class="homePost-content"> {{ post.contents }} </p>
-        <img class="homePost-image" v-if="extention = '.png' || '.jpg' || '.jpng' || '.tiff' || '.gif' || '.jfif'" :src="post.imageUrl" alt="" />
-        <video v-esle-if="extention = '.mp4' || '.ogg'" controls autoplay muted>
+        <img class="homePost-image" v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl" alt="" />
+        <video v-else-if="['.mp4', '.ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
           <source :src="post.imageUrl" type="">
         </video>
-        <audio v-esle-if="extention = '.mpeg' || '.ogg'" controls autoplay muted>
+        <audio v-else-if="['.mpeg', '.ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
           <source :src="post.imageUrl" type="">
         </audio>
       </router-link>
@@ -46,6 +46,11 @@ export default {
       .then(response => response.json())
       .then(data => { this.posts = data; })
       .catch(error => { console.log(error.message); })
+  },
+  methods: {
+    getExtension(imageUrl) {
+      return imageUrl?.split('.').pop();
+    },
   }
 }
 </script>
@@ -58,11 +63,10 @@ div .home-column {
 }
 
 .homePost {
-  width: 45%;
+  width: 100%;
   height: auto;
   border: 1px solid saddlebrown;
   border-radius: 10px;
-  margin-left: 27.5%;
   margin-top: 50px;
   box-shadow: 5px 5px 5px lightgray;
 }
@@ -85,4 +89,18 @@ div .home-column {
 .homePost-link {
   color: black;
   text-decoration: none;
-}</style>
+}
+.readPost {
+  text-decoration: aliceblue;
+}
+@media screen and (max-width: 1053px) {
+  h1 {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 415px) {
+  h1 {
+    font-size: 22px;
+  }
+}
+</style>

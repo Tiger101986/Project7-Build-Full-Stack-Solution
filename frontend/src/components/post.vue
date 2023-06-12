@@ -85,20 +85,19 @@ export default {
 .posts {
   display: flex;
   flex-direction: column;
-  /* border: 2px solid blue; */
   margin: auto 30px;
   padding: 30px;
 }
 
 div input {
-  width: auto;
-  height: 300px;
-  text-align: center;
-  /* border: 1px solid blue; */
+  width: 100%;
+  height: auto;
+  padding: 20px;
 }
 
 ::placeholder {
   font-size: 20px;
+  text-align: center; 
 }
 
 .file input {

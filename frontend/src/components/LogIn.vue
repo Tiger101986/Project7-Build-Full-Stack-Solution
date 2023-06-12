@@ -42,3 +42,27 @@ export default {
 }
 
 </script>
+
+<style scoped>
+form {
+  width: 100%;
+  margin-top: 50px;
+}
+
+form input {
+  display: block;
+  width: 450px;
+  padding-left: 15px;
+  height: 45px;
+  margin: 30px auto;
+  border: 1px solid black;
+}
+
+form button {
+  font-size: 15px;
+  width: 450px;
+  height: 45px;
+  margin: auto;
+  border: 1px solid black;
+}
+</style>

@@ -12,7 +12,8 @@
 export default {
     data() {
         return {
-            post: null
+            post: null,
+            usersRead: ''
         }
     },
     mounted() {
@@ -26,14 +27,24 @@ export default {
             .then(response => response.json())
             .then(data => { this.post = data; })
             .catch(error => { console.log(error.message); })
+        // Read Post by Users    
         fetch(`http://localhost:3000/api/posts/${this.$route.params.id}/read`, {
-            method: 'get',
+            method: 'post',
             headers: {
                 "Authorization": `Bearer ${token}`,
-            }
+            },
+            body: JSON.stringify({
+                usersRead: this.usersRead,
+            })
         })
-            .then(response => response.json())
-            .then(data => { this.post = data; })
+            .then((response) => {
+                if (response.status !== 201) {
+                    throw response.status;
+                } else {
+                    return response.json()
+                }
+            })
+            .then(data => console.log(data))
             .catch(error => { console.log(error.message); })
     }
 }
@@ -41,9 +52,9 @@ export default {
 
 <style scoped>
 .singleContent {
-    width: 50%;
+    width: 100%;
     height: auto;
-    margin: 50px 25%;
+    margin: 50px 0px;
     border: 1px solid gainsboro;
     border-radius: 10px;
     display: flex;

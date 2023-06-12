@@ -1,14 +1,14 @@
 <template>
-  <img id="company-logo" alt="Groupomania-logo" src="/images/icon-left-font.png"/> 
+  <img id="company-logo" alt="Groupomania-logo" src="/images/icon-left-font.png" />
   <nav>
     <router-link to="/"> Home </router-link> |
     <router-link to="/post"> Post </router-link> |
     <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link> |
     <router-link to="/profile"> Profile </router-link>
-    <router-link to="/:id"></router-link> |
+    <router-link to="/:id"></router-link>
   </nav>
-  <router-view/> 
+  <router-view />
 </template>
 
 <style>
@@ -17,16 +17,13 @@
   margin: 0;
   padding: 0;
 }
-body{
-  /* background-image: url("../public/images/icon-above-font.png");
-  background-repeat: no-repeat;
-  background-position: fixed;
-  background-position-x: center; */
+
+body {
   position: relative;
   min-width: 375px;
-  /* margin: 0 10px 20px 10px; */
-  margin: 20px;
+  margin: 20px 25%;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,9 +31,10 @@ body{
   text-align: center;
   color: #2c3e50;
 }
+
 #company-logo {
   width: 300px;
-  margin: -100px 0 -120px;
+  margin: -100px 0 -120px -38px;
 }
 
 nav {
@@ -52,4 +50,21 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-</style>
+
+/* mobile responsive */
+@media screen and (max-width: 467px) {
+  body {
+    margin: 10px 0px;
+  }
+}
+@media screen and (max-width: 800px) {
+  body {
+    margin: 50px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  body {
+    margin: 20px 100px;
+  }
+}</style>
