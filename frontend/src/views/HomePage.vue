@@ -4,13 +4,15 @@
 
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
-    <div class="homePost" v-for="post in posts" :key="post.id" @click="readPost">
+    <div class="homePost" :class="{ readPost: active }" v-for="post in posts" :key="post.id" @click="active = !active">
       <router-link class="homePost-link" :to="{
         name: 'SinglePost',
         params: { id: post.id }
       }">
         <p class="homePost-content"> {{ post.contents }} </p>
-        <img class="homePost-image" v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl" alt="" />
+        <img class="homePost-image"
+          v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
+          alt="" />
         <video v-else-if="['.mp4', '.ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
           <source :src="post.imageUrl" type="">
         </video>
@@ -32,7 +34,8 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      posts: []
+      posts: [],
+      active: false
     }
   },
   mounted() {
@@ -59,7 +62,6 @@ export default {
 div .home-column {
   display: flex;
   flex-direction: column;
-  
 }
 
 .homePost {
@@ -67,7 +69,7 @@ div .home-column {
   height: auto;
   border: 1px solid saddlebrown;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 15px;
   box-shadow: 5px 5px 5px lightgray;
 }
 
@@ -90,17 +92,38 @@ div .home-column {
   color: black;
   text-decoration: none;
 }
+
 .readPost {
-  text-decoration: aliceblue;
+  background-color: aliceblue;
 }
-@media screen and (max-width: 1053px) {
+
+@media screen and (min-width: 991px) {
+  div .home-column {
+    margin: 0px 25%;
+  }
+
   h1 {
     font-size: 25px;
   }
 }
-@media screen and (max-width: 615px) {
+
+@media screen and (min-width: 669px) and (max-width: 990px) {
+  div .home-column {
+    margin: 0px 20%;
+  }
+
   h1 {
     font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 668px) {
+  div .home-column {
+    margin: 0px 10px;
+  }
+
+  h1 {
+    font-size: 19px;
   }
 }
 </style>

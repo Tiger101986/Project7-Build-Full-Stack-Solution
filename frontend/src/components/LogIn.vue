@@ -1,3 +1,4 @@
+<!-- Log in page HTML -->
 <template>
   <form method="post">
     <input id="email" name="email" type="email" placeholder="Enter Email" v-model="users.email" required />
@@ -5,6 +6,8 @@
     <button @click.prevent="onSubmit" type="submit">LogIn</button>
   </form>
 </template>
+
+<!-- Log in page  vue freamwork of javascript -->
 <script>
 export default {
   name: "LogIn",
@@ -40,9 +43,9 @@ export default {
     },
   }
 }
-
 </script>
 
+<!-- Log in page style CSS -->
 <style scoped>
 form {
   width: 100%;
@@ -64,5 +67,15 @@ form button {
   height: 45px;
   margin: auto;
   border: 1px solid black;
+}
+/* Mobile Responsive */
+@media screen and (max-width: 600px) {
+  form input {
+    width: 360px;
+  }
+
+  form button {
+    width: 360px
+  }
 }
 </style>

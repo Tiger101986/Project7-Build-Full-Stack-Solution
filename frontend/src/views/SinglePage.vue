@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             post: null,
+            userId: null
         }
     },
     mounted() {
@@ -51,15 +52,14 @@ export default {
 
 <style scoped>
 .singleContent {
-    width: 100%;
+    width: 50%;
     height: auto;
-    margin: 50px 0px;
+    margin: 50px 25%;
     border: 1px solid gainsboro;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     background-color: lightgray;
-    /* align-items: center; */
     opacity: 5;
 }
 
@@ -72,5 +72,23 @@ export default {
 .singleContent-image {
     object-fit: contain;
     border-radius: 0 0px 10px 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .singleContent {
+    width: 90%;
+    margin-top: 35.5px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 821px) {
+    .singleContent {
+    width: 70%;
+    margin-top: 35.5px;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
 }
 </style>

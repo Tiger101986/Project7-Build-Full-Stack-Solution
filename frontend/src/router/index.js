@@ -13,13 +13,6 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-    /* beforeEnter(to, from, next) {
-      const { userId, token } = JSON.parse(localStorage.getItem("users-info")); 
-      alert('Please login first')
-      if (to.name !== 'Login' && token) {
-        return '/login'
-      }
-    }, */
   },
   {
     path: '/post',
@@ -28,13 +21,6 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-    /* beforeEnter(to, from, next) {
-      const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
-      alert('Please login first') 
-      if (to.name !== 'Login') {
-        return '/login'
-      }
-    }, */
   },
   {
     path: '/:id',
@@ -43,13 +29,6 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-    /* beforeEnter(to, from, next) {
-      const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
-      alert('Please login first')
-      if (to.name !== 'Login') {
-        return '/login'
-      }
-    }, */
   },
   {
     path: '/signup',
@@ -68,13 +47,6 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
-    /* beforeEnter(to, from, next) {
-      const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
-      alert('Please login first')
-      if (to.name !== 'Login') {
-        return '/login'
-      }
-    } */
   },
 ]
 

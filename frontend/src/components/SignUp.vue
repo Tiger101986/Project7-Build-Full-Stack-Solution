@@ -9,7 +9,6 @@
 
 <!-- Create signup properties and send to database -->
 <script>
-
 export default {
   name: "SignUp",
   data() {
@@ -21,7 +20,7 @@ export default {
     }
   },
   methods: {
-    //use fetch() sending user signup to home page and database to save data
+    //use fetch() sending user signup to log in page and database to save data
     onSubmit() {
       fetch("http://localhost:3000/api/auth/signup", {
         method: "POST",
@@ -49,10 +48,11 @@ export default {
 };
 </script>
 
+<!-- CSS styling for Sign Up page -->
 <style scoped>
 form {
   width: 100%;
-  margin-top: 50px; 
+  margin-top: 50px;
 }
 
 form input {
@@ -70,5 +70,15 @@ form button {
   height: 45px;
   margin: auto;
   border: 1px solid black;
+}
+
+@media screen and (max-width: 600px) {
+  form input {
+    width: 360px;
+  }
+
+  form button {
+    width: 360px
+  }
 }
 </style>

@@ -85,9 +85,7 @@ export default {
 .posts {
   display: flex;
   flex-direction: column;
-  /* border: 2px solid blue; */
   margin: auto 30px;
-  padding: 30px;
 }
 
 div input {
@@ -108,26 +106,16 @@ div input {
 .file button {
   width: 150px;
   height: 30px;
-  padding: 10px auto 20px;
   margin-top: 30px;
-  position: absolute;
-  /* bottom: 475px; */
-  left: 68px;
+  position: fixed;
+  top: 230px; 
+  left: 30px;
 }
 
 div .btn {
-  position: absolute;
-  left: 250px;
-  bottom: -31px;
   width: 150px;
   height: 30px;
-  margin-top: 20px;
+  margin-top: 60px;
   color: blue;
 }
-
-/* @media (max-width: 991.98px) {
-	.file button {
-		left: 35px;
-	}
-} */
 </style>

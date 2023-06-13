@@ -21,7 +21,7 @@
 body {
   position: relative;
   min-width: 375px;
-  margin: 20px 25%;
+  padding: 20px 0px;
 }
 
 #app {
@@ -52,19 +52,20 @@ nav a.router-link-exact-active {
 }
 
 /* mobile responsive */
-@media screen and (max-width: 467px) {
+/* @media screen and (max-width: 467px) {
   body {
-    margin: 10px 0px;
+    margin: 0;
+    padding: 0px;  
   }
 }
-@media screen and (max-width: 800px) {
+@media screen and (min-width: 765px) {
   body {
-    margin: 50px;
+    padding: 50px;
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (min-width: 991px) {
   body {
-    margin: 20px 100px;
+    padding: 20px 200px;
   }
-}</style>
+} */</style>
