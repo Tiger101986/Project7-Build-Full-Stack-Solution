@@ -72,6 +72,7 @@ form button {
   border: 1px solid black;
 }
 
+/* mobile responsive */
 @media screen and (max-width: 600px) {
   form input {
     width: 360px;

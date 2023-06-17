@@ -1,9 +1,10 @@
+<!-- Generate User profile page to be able delete user account -->
 <template>
     <button @click.prevent="deleteUser" type="submit"> Delete </button>
 </template>
 
-<script>
 
+<script>
 export default {
     name: "ProfileUser",
     methods: {
@@ -32,6 +33,7 @@ export default {
 }
 </script>
 
+<!-- Styling delete button -->
 <style scoped>
 button {
     width: 100px;

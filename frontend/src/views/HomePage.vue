@@ -1,21 +1,23 @@
+<!-- Display all post in home page -->
 <template>
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
-    <div class="homePost" v-for="post in posts"  :key="post.id"  @click="read = !read" :class="{ readPost: read }"> 
+    <div class="homePost" v-for="post in posts" :key="post.id">
       <div v-if="isRead(post)">read</div>
       <router-link class="homePost-link" :to="{
         name: 'SinglePost',
         params: { id: post.id }
       }">
-        <!-- <p :class="{ readPost: active }"> Read </p> -->
         <p class="homePost-content"> {{ post.contents }} </p>
         <img class="homePost-image"
           v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
           alt="" />
-        <video v-else-if="['mp4', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
+        <video class="homePost-video" v-else-if="['mp4', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay
+          muted>
           <source :src="post.imageUrl" type="">
         </video>
-        <audio v-else-if="['mp3', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
+        <audio class="homePost-audio" v-else-if="['mp3', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay
+          muted>
           <source :src="post.imageUrl" type="">
         </audio>
       </router-link>
@@ -26,16 +28,14 @@
   </div>
 </template>
 
+<!-- fetch all data from storage sequalize/postgres -->
 <script>
-/* import HomeUp from '../components/HomeIn.vue' */
-
 export default {
   name: 'HomeView',
   data() {
     return {
       userId: '',
       posts: [],
-      read: false
     }
   },
   mounted() {
@@ -62,6 +62,7 @@ export default {
 }
 </script>
 
+<!-- Styling posted card -->
 <style scoped>
 div .home-column {
   display: flex;
@@ -87,9 +88,17 @@ div .home-column {
 .homePost-image {
   width: 100%;
   height: auto;
-  object-fit: co;
+  object-fit: contain;
   border-radius: 0 0px 10px 10px;
-  /* position: relative; */
+  margin-bottom: -4px;
+}
+
+.homePost-video {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0 0px 10px 10px;
+  margin-bottom: -4px;
 }
 
 .homePost-link {
@@ -97,10 +106,7 @@ div .home-column {
   text-decoration: none;
 }
 
-.readPost {
-  color: blue;
-}
-
+/* working with mobile responsive */
 @media screen and (min-width: 991px) {
   div .home-column {
     margin: 0px 25%;

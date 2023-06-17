@@ -1,3 +1,4 @@
+<!-- import post.vue component to generate post page -->
 <template>
   <PostUp />
 </template>

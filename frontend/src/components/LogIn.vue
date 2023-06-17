@@ -68,6 +68,7 @@ form button {
   margin: auto;
   border: 1px solid black;
 }
+
 /* Mobile Responsive */
 @media screen and (max-width: 600px) {
   form input {

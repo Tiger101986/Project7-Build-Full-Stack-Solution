@@ -1,3 +1,4 @@
+<!-- import LogIn.vue component to generate log-in page -->
 <template>
   <LogIn />
 </template>

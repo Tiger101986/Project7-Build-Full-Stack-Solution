@@ -1,3 +1,4 @@
+<!-- Crate post card -->
 <template>
   <div class="posts" method="post">
     <input type="text" name="contents" placeholder="Enter Contents" v-model="post.contents" />
@@ -9,6 +10,7 @@
   </div>
 </template>
 
+<!-- Generate Datas and methods to implement post -->
 <script>
 export default {
   name: "PostUp",
@@ -25,7 +27,7 @@ export default {
     onSelectFile(e) {
       this.post.media = e.target.files[0];
     },
-    // Create post 
+    // posts with media append to FormData()
     postContents() {
       const { userId, token } = JSON.parse(localStorage.getItem("users-info"));
       if (this.post.media) {
@@ -81,6 +83,7 @@ export default {
 };
 </script>
 
+<!-- Styling post card -->
 <style scoped>
 .posts {
   display: flex;
@@ -96,7 +99,7 @@ div input {
 
 ::placeholder {
   font-size: 20px;
-  text-align: center; 
+  text-align: center;
 }
 
 .file input {
@@ -108,7 +111,7 @@ div input {
   height: 30px;
   margin-top: 30px;
   position: fixed;
-  top: 230px; 
+  top: 230px;
   left: 30px;
 }
 
