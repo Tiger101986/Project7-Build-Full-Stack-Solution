@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             post: null,
-            userId: null
+            /* usersRead: '' */
         }
     },
     mounted() {
@@ -31,6 +31,7 @@ export default {
         fetch(`http://localhost:3000/api/posts/${this.$route.params.id}/read`, {
             method: 'post',
             headers: {
+                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify({    

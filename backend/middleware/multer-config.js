@@ -8,7 +8,9 @@
  const MIME_TYPES = {
      'image/jpg': 'jpg',
      'image/jpeg': 'jpg',
-     'image/png': 'jpg'
+     'image/png': 'jpg',
+     "audio/mpeg": "mp3",
+     "video/mp4": "mp4"
  };
  
  const storage = multer.diskStorage({

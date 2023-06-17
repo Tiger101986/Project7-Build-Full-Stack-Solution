@@ -52,7 +52,7 @@ exports.getOnePost = (req, res, next) => {
 
 // Display all sauce cards
 exports.getAllPosts = (req, res, next) => {
-    Post.findAll().then((post) => {
+    Post.findAll({ order: [["createdAt", "DESC"]] }).then((post) => {
         res.status(200).json(post);
     }).catch(
         (error) => {

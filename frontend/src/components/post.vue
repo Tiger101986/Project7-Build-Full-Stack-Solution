@@ -3,7 +3,7 @@
     <input type="text" name="contents" placeholder="Enter Contents" v-model="post.contents" />
     <div class="file">
       <input name="file" type="file" ref="fileInput" @change="onSelectFile">
-      <button @click="$refs.fileInput.click()"> Choose Image </button>
+      <button @click="$refs.fileInput.click()"> Choose Media </button>
     </div>
     <button class="btn" @click.prevent="postContents" type="submit">Post Content!</button>
   </div>

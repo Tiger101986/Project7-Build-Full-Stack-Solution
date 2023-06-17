@@ -1,22 +1,21 @@
 <template>
-  <!-- <img alt="Groupomania-logo" src="/images/icon-left-font.png"/>  -->
-  <!-- /images/icon-above-font.png -->
-
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
-    <div class="homePost" :class="{ readPost: active }" v-for="post in posts" :key="post.id" @click="active = !active">
+    <div class="homePost" v-for="post in posts"  :key="post.id"  @click="read = !read" :class="{ readPost: read }"> 
+      <div v-if="isRead(post)">read</div>
       <router-link class="homePost-link" :to="{
         name: 'SinglePost',
         params: { id: post.id }
       }">
+        <!-- <p :class="{ readPost: active }"> Read </p> -->
         <p class="homePost-content"> {{ post.contents }} </p>
         <img class="homePost-image"
           v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
           alt="" />
-        <video v-else-if="['.mp4', '.ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
+        <video v-else-if="['mp4', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
           <source :src="post.imageUrl" type="">
         </video>
-        <audio v-else-if="['.mpeg', '.ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
+        <audio v-else-if="['mp3', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
           <source :src="post.imageUrl" type="">
         </audio>
       </router-link>
@@ -34,12 +33,14 @@ export default {
   name: 'HomeView',
   data() {
     return {
+      userId: '',
       posts: [],
-      active: false
+      read: false
     }
   },
   mounted() {
-    const { token } = JSON.parse(localStorage.getItem("users-info"));
+    const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
+    this.userId = userId;
     fetch("http://localhost:3000/api/posts", {
       method: 'get',
       headers: {
@@ -54,6 +55,9 @@ export default {
     getExtension(imageUrl) {
       return imageUrl?.split('.').pop();
     },
+    isRead(post) {
+      return post.usersRead.includes(this.userId);
+    }
   }
 }
 </script>
@@ -94,7 +98,7 @@ div .home-column {
 }
 
 .readPost {
-  background-color: aliceblue;
+  color: blue;
 }
 
 @media screen and (min-width: 991px) {
