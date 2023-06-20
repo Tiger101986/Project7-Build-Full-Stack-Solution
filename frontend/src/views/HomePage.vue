@@ -8,7 +8,7 @@
         name: 'SinglePost',
         params: { id: post.id }
       }">
-        <p> {{ post.userId }} </p>
+        <p class="homePost-userId"> UserId: {{ post.userId }} </p>
         <p class="homePost-content"> {{ post.contents }} </p>
         <img class="homePost-image"
           v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
@@ -79,6 +79,10 @@ div .home-column {
   box-shadow: 5px 5px 5px lightgray;
 }
 
+.homePost-userId {
+  padding: 20px;
+  text-align: left;
+}
 .homePost-content {
   padding: 20px;
   overflow: hidden;
@@ -91,7 +95,7 @@ div .home-column {
   height: auto;
   object-fit: contain;
   border-radius: 0 0px 10px 10px;
-  margin-bottom: -4px;
+  margin-bottom: -3px;
 }
 
 .homePost-video {
@@ -99,7 +103,7 @@ div .home-column {
   height: auto;
   object-fit: contain;
   border-radius: 0 0px 10px 10px;
-  margin-bottom: -4px;
+  margin-bottom: -3px;
 }
 
 .homePost-link {

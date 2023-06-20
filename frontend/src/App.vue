@@ -6,11 +6,23 @@
     <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link> |
     <router-link to="/profile"> Profile </router-link> 
-    <router-link to="/logout"> LogOut </router-link> |
     <router-link to="/:id"></router-link>
+    <button @click.prevent="logOUt" type="submit"> Log-out </button>
   </nav>
   <router-view />
 </template>
+
+<script>
+  export default {
+    name: "appPage",
+    methods: {
+      logOUt () {
+        localStorage.removeItem("users-info")
+        this.$router.push({ name: 'Login' });
+      }
+    }
+  }
+</script>
 
 <style>
 * {
@@ -52,21 +64,4 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-/* mobile responsive */
-/* @media screen and (max-width: 467px) {
-  body {
-    margin: 0;
-    padding: 0px;  
-  }
-}
-@media screen and (min-width: 765px) {
-  body {
-    padding: 50px;
-  }
-}
-
-@media screen and (min-width: 991px) {
-  body {
-    padding: 20px 200px;
-  }
-} */</style>
+</style>
