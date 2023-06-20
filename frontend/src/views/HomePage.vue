@@ -8,6 +8,7 @@
         name: 'SinglePost',
         params: { id: post.id }
       }">
+        <p> {{ post.userId }} </p>
         <p class="homePost-content"> {{ post.contents }} </p>
         <img class="homePost-image"
           v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
