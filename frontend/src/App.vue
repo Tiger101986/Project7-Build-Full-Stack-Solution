@@ -5,10 +5,10 @@
     <router-link to="/post"> Post </router-link> |
     <router-link to="/signup"> Signup </router-link> |
     <router-link to="/login"> Login </router-link> |
-    <router-link to="/profile"> Profile </router-link> 
+    <router-link to="/profile"> Profile </router-link>
     <router-link to="/:id"></router-link>
     <div>
-      {{ getUserId }}
+      Hello {{ user }} !
       <button class="logOut-btn" @click.prevent="logOut" type="submit"> Log-out </button>
     </div>
 
@@ -17,24 +17,24 @@
 </template>
 
 <script>
-  export default {
-    name: "appPage",
-    data() {
-      return {
-        userId: ''
-      }
-    },
-    methods: {
-      getUserId() {
-        const { userId } = JSON.parse(localStorage.getItem("users-info"));
-        this.userId = userId;
-      },
-      logOut () {
-        localStorage.removeItem("users-info")
-        this.$router.push({ name: 'Login' });
-      }
+export default {
+  name: "appPage",
+  data() {
+    return {
+      user: ''
+    }
+  },
+  mounted() {
+    const { email } = JSON.parse(localStorage.getItem("users-info"));
+    this.user = email;
+  },
+  methods: {
+    logOut() {
+      localStorage.removeItem("users-info")
+      this.$router.push({ name: 'Login' });
     }
   }
+}
 </script>
 
 <style>
@@ -76,12 +76,14 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
 .logOut-btn {
   padding: 2px;
   margin-left: 5px;
   /* border: hidden; */
   background-color: white;
 }
+
 @media screen and (max-width: 425px) {
   .logOut-btn {
     margin-top: 5px;
