@@ -24,6 +24,7 @@ export default {
     name: "ProfileUser",
     data() {
         return {
+            userId: null,
             post: null,
         }
     },
@@ -53,7 +54,8 @@ export default {
         }
     },
     mounted() {
-        const { token } = JSON.parse(localStorage.getItem("users-info"));
+        const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
+        this.userId = userId;
         fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
             method: 'get',
             headers: {

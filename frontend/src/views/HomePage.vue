@@ -35,6 +35,7 @@ export default {
   name: 'HomeView',
   data() {
     return {
+      email: '',
       userId: '',
       posts: [],
     }
@@ -50,6 +51,16 @@ export default {
     })
       .then(response => response.json())
       .then(data => { this.posts = data; })
+      .catch(error => { console.log(error.message); })
+    // fetch users data from database
+    fetch("http://localhost:3000/api/auth/signup", {
+      method: 'get',
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    })
+      .then(response => response.json())
+      .then(data => {this.email = data;})
       .catch(error => { console.log(error.message); })
   },
   methods: {

@@ -7,7 +7,11 @@
     <router-link to="/login"> Login </router-link> |
     <router-link to="/profile"> Profile </router-link> 
     <router-link to="/:id"></router-link>
-    <button @click.prevent="logOUt" type="submit"> Log-out </button>
+    <div>
+      {{ getUserId }}
+      <button class="logOut-btn" @click.prevent="logOut" type="submit"> Log-out </button>
+    </div>
+
   </nav>
   <router-view />
 </template>
@@ -15,8 +19,17 @@
 <script>
   export default {
     name: "appPage",
+    data() {
+      return {
+        userId: ''
+      }
+    },
     methods: {
-      logOUt () {
+      getUserId() {
+        const { userId } = JSON.parse(localStorage.getItem("users-info"));
+        this.userId = userId;
+      },
+      logOut () {
         localStorage.removeItem("users-info")
         this.$router.push({ name: 'Login' });
       }
@@ -63,5 +76,15 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-
+.logOut-btn {
+  padding: 2px;
+  margin-left: 5px;
+  /* border: hidden; */
+  background-color: white;
+}
+@media screen and (max-width: 425px) {
+  .logOut-btn {
+    margin-top: 5px;
+  }
+}
 </style>
