@@ -3,12 +3,12 @@
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
     <div class="homePost" v-for="post in posts" :key="post.id">
-      <div v-if="isRead(post)">read</div>
+      <div class="homePost-isRead" v-if="isRead(post)">read</div>
       <router-link class="homePost-link" :to="{
         name: 'SinglePost',
         params: { id: post.id }
       }">
-        <p class="homePost-userId"> UserId: {{ post.userId }} </p>
+        <p class="homePost-userId"> Created by: {{ getUser(post.userId) }} </p>
         <p class="homePost-content"> {{ post.contents }} </p>
         <img class="homePost-image"
           v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
@@ -35,7 +35,7 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      email: '',
+      users: [],
       userId: '',
       posts: [],
     }
@@ -53,14 +53,14 @@ export default {
       .then(data => { this.posts = data; })
       .catch(error => { console.log(error.message); })
     // fetch users data from database
-    fetch("http://localhost:3000/api/auth/signup", {
+    fetch("http://localhost:3000/api/auth", {
       method: 'get',
       headers: {
         "Authorization": `Bearer ${token}`,
       }
     })
       .then(response => response.json())
-      .then(data => {this.email = data;})
+      .then(data => { this.users = data; })
       .catch(error => { console.log(error.message); })
   },
   methods: {
@@ -69,6 +69,9 @@ export default {
     },
     isRead(post) {
       return post.usersRead.includes(this.userId);
+    },
+    getUser(userId) {
+      return this.users.find(user => user.id === userId)?.email;
     }
   }
 }
@@ -88,12 +91,22 @@ div .home-column {
   border-radius: 10px;
   margin-top: 15px;
   box-shadow: 5px 5px 5px lightgray;
+  background-color: whitesmoke;
+  position: relative;
+}
+.homePost-isRead {
+ /*  text-align: right;
+  margin: 10px 10px 0px 0px; */
+  position: absolute;
+  top: 10px;
+  right: 20px;
 }
 
 .homePost-userId {
-  padding: 20px;
+  padding: 10px 20px 0px;
   text-align: left;
 }
+
 .homePost-content {
   padding: 20px;
   overflow: hidden;

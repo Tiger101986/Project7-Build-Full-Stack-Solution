@@ -12,6 +12,6 @@ const userController = require('../controllers/user');
 router.post('/signup', userController.signUp);
 router.post('/login', userController.logIn);
 router.delete('/:userId', auth, userController.deleteAccount); 
-router.get('/:userId', auth, userController.getAllUsers);
+router.get('/', auth, userController.getAllUsers); /* :userId */
 
 module.exports = router;

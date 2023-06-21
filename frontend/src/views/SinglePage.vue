@@ -1,8 +1,8 @@
 <!-- Generate Single page with one post -->
 <template>
     <div class="singleContent" v-if="post" :key="id">
+        <p class="homePost-userId"> Created by: {{ getUser(post.userId) }} </p>
         <p class="singleContent-text"> {{ post.contents }} </p>
-        <!-- <img class="singleContent-image" :src="post.imageUrl" alt="" /> -->
         <img class="singleContent-media"
             v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
             alt="" />
@@ -24,8 +24,9 @@
 export default {
     data() {
         return {
+            users: [],
             post: null,
-            /* usersRead: '' */
+            userId: '',
         }
     },
     mounted() {
@@ -59,10 +60,23 @@ export default {
             })
             .then(data => console.log(data))
             .catch(error => { console.log(error.message); })
+        // fetch users data from database
+        fetch("http://localhost:3000/api/auth", {
+            method: 'get',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+            .then(response => response.json())
+            .then(data => { this.users = data; })
+            .catch(error => { console.log(error.message); })
     },
     methods: {
         getExtension(imageUrl) {
             return imageUrl?.split('.').pop();
+        },
+        getUser(userId) {
+            return this.users.find(user => user.id === userId)?.email;
         }
     }
 }
@@ -74,12 +88,17 @@ export default {
     width: 50%;
     height: auto;
     margin: 50px 25%;
-    border: 1px solid gainsboro;
+    border: 1px solid saddlebrown;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
+    background-color: peru;
     opacity: 5;
+}
+
+.homePost-userId {
+    padding: 20px 20px 0px;
+    text-align: left;
 }
 
 .singleContent-text {
