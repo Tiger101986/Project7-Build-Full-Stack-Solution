@@ -56,7 +56,7 @@ export default {
     mounted() {
         const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
         this.userId = userId;
-        fetch(`http://localhost:3000/api/posts/${this.$route.params.id}`, {
+        fetch('http://localhost:3000/api/posts/', {
             method: 'get',
             headers: {
                 "Authorization": `Bearer ${token}`,

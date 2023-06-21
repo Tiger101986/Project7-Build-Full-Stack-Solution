@@ -43,6 +43,7 @@ exports.logIn = (req, res, next) => {
                         { expiresIn: '24h' });
                     res.status(200).json({
                         userId: user.id,
+                        email: user.email,
                         token: token
                     });
                 }
@@ -61,6 +62,20 @@ exports.logIn = (req, res, next) => {
             });
         }
     );
+}
+
+//Diplay all users without password
+exports.getAllUsers = (req, res, next) => {
+    User.findAll({
+        attributes: { exclude: ['password'] },
+        order: [["createdAt", "DESC"]]
+    }).then((user) => {
+        res.status(200).json(user);
+    }).catch(
+        (error) => {
+            res.status(400).json({ error: error.message || error });
+        }
+    )
 }
 
 //Delete User Account
