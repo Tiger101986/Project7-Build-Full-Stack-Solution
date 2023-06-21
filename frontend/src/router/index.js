@@ -4,7 +4,6 @@ import PostView from '../views/PostPage.vue'
 import SinglePage from '../views/SinglePage.vue'
 import SignUpPage from '../views/SignUpPage.vue'
 import LoginView from '../views/LogInPage.vue'
-/* import LogOutView from '../views/LogOutPage.vue' */
 import ProfileView from '../views/ProfilePage.vue'
 const routes = [
   {
@@ -41,14 +40,6 @@ const routes = [
     name: 'Login',
     component: LoginView
   },
- /*  {
-    path: '/logout',
-    name: 'LogOut',
-    component: LogOutView,
-    meta: {
-      requiresAuth: true,
-    },
-  }, */
   {
     path: '/profile',
     name: 'Profile',
