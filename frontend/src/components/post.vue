@@ -111,7 +111,7 @@ div input {
   height: 30px;
   margin-top: 30px;
   position: absolute;
-  top: 260px;
+  top: 230px;
   left: 30px;
 }
 

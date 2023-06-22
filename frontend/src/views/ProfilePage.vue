@@ -1,20 +1,22 @@
 <!-- Generate User profile page to be able delete user account -->
 <template>
-    <div class="singleContent" v-for="post in posts" :key="post.id">
-        <p class="singleContent-userId"> Created by: {{ getUser(post.userId) }} </p>
-        <p class="singleContent-text"> {{ post.contents }} </p>
-        <img class="singleContent-media"
-            v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
-            alt="" />
-        <video class="singleContent-media" v-else-if="['mp4', 'ogg'].includes(getExtension(post.imageUrl))" controls
-            autoplay muted>
-            <source :src="post.imageUrl" type="">
-        </video>
-        <audio v-else-if="['mp3', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
-            <source :src="post.imageUrl" type="">
-        </audio>
-    </div>
     <button @click.prevent="deleteUser" type="submit"> Delete </button>
+    <div class="single">
+        <div class="singleContent" v-for="post in posts" :key="post.id">
+            <p class="singleContent-userId"> Created by: {{ getUser(post.userId) }} </p>
+            <p class="singleContent-text"> {{ post.contents }} </p>
+            <img class="singleContent-media"
+                v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))"
+                :src="post.imageUrl" alt="" />
+            <video class="singleContent-media" v-else-if="['mp4', 'ogg'].includes(getExtension(post.imageUrl))" controls
+                autoplay muted>
+                <source :src="post.imageUrl" type="">
+            </video>
+            <audio v-else-if="['mp3', 'ogg'].includes(getExtension(post.imageUrl))" controls autoplay muted>
+                <source :src="post.imageUrl" type="">
+            </audio>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -89,10 +91,16 @@ button {
     position: sticky;
 }
 
-.singleContent {
-    width: 50%;
-    height: auto;
+div .single {
+    display: flex;
+    flex-direction: column;
     margin: 15px 25%;
+}
+
+.singleContent {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
     border: 1px solid gainsboro;
     border-radius: 10px;
     display: flex;
@@ -120,21 +128,21 @@ button {
 }
 
 /* mobile responsive for single page */
-@media screen and (max-width: 600px) {
-    .singleContent {
-        width: 90%;
-        margin-top: 35.5px;
-        margin-left: 5%;
-        margin-right: 5%;
+@media screen and (min-width: 991px) {
+    div .single {
+        margin: 0px 25%;
     }
 }
 
-@media screen and (min-width: 601px) and (max-width: 821px) {
-    .singleContent {
-        width: 70%;
-        margin-top: 35.5px;
-        margin-left: 15%;
-        margin-right: 15%;
+@media screen and (min-width: 669px) and (max-width: 990px) {
+    div .single {
+        margin: 0px 20%;
+    }
+}
+
+@media screen and (max-width: 668px) {
+    div .single {
+        margin: 0px 25px;
     }
 }
 </style>

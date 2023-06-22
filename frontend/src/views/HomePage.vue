@@ -1,5 +1,9 @@
 <!-- Display all post in home page -->
 <template>
+  <div class="userAccount">
+    Hello {{ user }} !
+    <button class="logOut-btn" @click.prevent="logOut" type="submit"> Log-out </button>
+  </div>
   <h1> Wellcome to Groupomania Teams! </h1>
   <div class="home-column" v-if="posts.length">
     <div class="homePost" v-for="post in posts" :key="post.id">
@@ -35,13 +39,15 @@ export default {
   name: 'HomeView',
   data() {
     return {
+      user: '',
       users: [],
       userId: '',
       posts: [],
     }
   },
   mounted() {
-    const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
+    const { token, userId, email } = JSON.parse(localStorage.getItem("users-info"));
+    this.user = email;
     this.userId = userId;
     fetch("http://localhost:3000/api/posts", {
       method: 'get',
@@ -72,6 +78,10 @@ export default {
     },
     getUser(userId) {
       return this.users.find(user => user.id === userId)?.email;
+    },
+    logOut() {
+      localStorage.removeItem("users-info")
+      this.$router.push({ name: 'Login' });
     }
   }
 }
@@ -79,6 +89,18 @@ export default {
 
 <!-- Styling posted card -->
 <style scoped>
+.userAccount {
+  padding: 5px;
+  color: blue;
+}
+
+.logOut-btn {
+  padding: 2px;
+  margin-left: 5px;
+  border: hidden;
+  background-color: light
+  gray;
+}
 div .home-column {
   display: flex;
   flex-direction: column;
@@ -94,8 +116,9 @@ div .home-column {
   background-color: whitesmoke;
   position: relative;
 }
+
 .homePost-isRead {
- /*  text-align: right;
+  /*  text-align: right;
   margin: 10px 10px 0px 0px; */
   position: absolute;
   top: 10px;
@@ -159,7 +182,7 @@ div .home-column {
 
 @media screen and (max-width: 668px) {
   div .home-column {
-    margin: 0px 10px;
+    margin: 0px 25px;
   }
 
   h1 {
