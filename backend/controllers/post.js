@@ -50,7 +50,7 @@ exports.getOnePost = (req, res, next) => {
     );
 };
 
-// Display all sauce cards
+// Display all posted cards
 exports.getAllPosts = (req, res, next) => {
     Post.findAll({ order: [["createdAt", "DESC"]] }).then((post) => {
         res.status(200).json(post);
@@ -62,6 +62,22 @@ exports.getAllPosts = (req, res, next) => {
         }
     );
 }
+
+//Display all posts for one user
+exports.getAllPostsForUser = (req, res, next) => {
+    Post.findAll({
+        where: { userId: req.params.userId },
+        order: [["createdAt", "DESC"]]
+    }).then((post) => {
+        res.status(200).json(post);
+    }).catch(
+        (error) => {
+            res.status(400).json({
+                error: error.message || error
+            });
+        }
+    );
+};
 
 // Updating post card wiht read post status from users
 exports.read = (req, res, next) => {

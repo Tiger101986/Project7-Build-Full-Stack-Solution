@@ -86,7 +86,8 @@ nav a.router-link-exact-active {
   padding: 2px;
   margin-left: 5px;
   border: hidden;
-  background-color: gray;
+  background-color: light
+  gray;
 }
 
 @media screen and (max-width: 425px) {

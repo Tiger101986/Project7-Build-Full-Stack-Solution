@@ -105,6 +105,7 @@ div .home-column {
 .homePost-userId {
   padding: 10px 20px 0px;
   text-align: left;
+  color: blue;
 }
 
 .homePost-content {

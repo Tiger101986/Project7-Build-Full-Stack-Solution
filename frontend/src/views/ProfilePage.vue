@@ -1,7 +1,6 @@
 <!-- Generate User profile page to be able delete user account -->
 <template>
-    <button @click.prevent="deleteUser" type="submit"> Delete </button>
-    <div class="singleContent" v-for="post in posts" :key="id">
+    <div class="singleContent" v-for="post in posts" :key="post.id">
         <p class="singleContent-userId"> Created by: {{ getUser(post.userId) }} </p>
         <p class="singleContent-text"> {{ post.contents }} </p>
         <img class="singleContent-media"
@@ -15,6 +14,7 @@
             <source :src="post.imageUrl" type="">
         </audio>
     </div>
+    <button @click.prevent="deleteUser" type="submit"> Delete </button>
 </template>
 
 <script>
@@ -53,12 +53,12 @@ export default {
         },
         getUser(userId) {
             return this.users.find(user => user.id === userId)?.email;
-        }
+        },
     },
     mounted() {
         const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
         this.userId = userId;
-        fetch(`http://localhost:3000/api/posts/${userId}`, {
+        fetch(`http://localhost:3000/api/posts/userId/${userId}`, {
             method: 'get',
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -67,6 +67,16 @@ export default {
             .then(response => response.json())
             .then(data => { this.posts = data; })
             .catch(error => { console.log(error.message); })
+
+        fetch("http://localhost:3000/api/auth", {
+            method: 'get',
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+            .then(response => response.json())
+            .then(data => { this.users = data; })
+            .catch(error => { console.log(error.message); })
     }
 }
 </script>
@@ -74,17 +84,15 @@ export default {
 <!-- Styling delete button -->
 <style scoped>
 button {
-    width: 100px;
-    height: 30px;
-    margin-top: 30px;
-    position: fixed;
-    bottom: 10px;
+    width: 65px;
+    height: 25px;
+    position: sticky;
 }
 
 .singleContent {
     width: 50%;
     height: auto;
-    margin: 50px 25%;
+    margin: 15px 25%;
     border: 1px solid gainsboro;
     border-radius: 10px;
     display: flex;
