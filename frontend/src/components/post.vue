@@ -111,7 +111,7 @@ div input {
   height: 30px;
   margin-top: 30px;
   position: absolute;
-  top: 230px;
+  top: 260px;
   left: 30px;
 }
 
@@ -120,16 +120,5 @@ div .btn {
   height: 30px;
   margin-top: 60px;
   color: blue;
-}
-
-@media screen and (max-width: 425px) {
-  .file button {
-    width: 150px;
-    height: 30px;
-    margin-top: 30px;
-    position: absolute;
-    top: 260px;
-    left: 30px;
-  }
 }
 </style>

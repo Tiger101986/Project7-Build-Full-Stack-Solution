@@ -7,7 +7,7 @@
     <router-link to="/login"> Login </router-link> |
     <router-link to="/profile"> Profile </router-link>
     <router-link to="/:id"></router-link>
-    <div>
+    <div class="userAccount">
       Hello {{ user }} !
       <button class="logOut-btn" @click.prevent="logOut" type="submit"> Log-out </button>
     </div>
@@ -77,11 +77,16 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
+.userAccount {
+  padding: 5px;
+  color: blue;
+}
+
 .logOut-btn {
   padding: 2px;
   margin-left: 5px;
-  /* border: hidden; */
-  background-color: white;
+  border: hidden;
+  background-color: gray;
 }
 
 @media screen and (max-width: 425px) {

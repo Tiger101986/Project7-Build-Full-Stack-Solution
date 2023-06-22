@@ -1,7 +1,7 @@
 <!-- Generate Single page with one post -->
 <template>
     <div class="singleContent" v-if="post" :key="id">
-        <p class="homePost-userId"> Created by: {{ getUser(post.userId) }} </p>
+        <p class="singleContent-userId"> Created by: {{ getUser(post.userId) }} </p>
         <p class="singleContent-text"> {{ post.contents }} </p>
         <img class="singleContent-media"
             v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
@@ -96,7 +96,7 @@ export default {
     opacity: 5;
 }
 
-.homePost-userId {
+.singleContent-userId {
     padding: 20px 20px 0px;
     text-align: left;
 }

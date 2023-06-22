@@ -1,7 +1,8 @@
 <!-- Generate User profile page to be able delete user account -->
 <template>
     <button @click.prevent="deleteUser" type="submit"> Delete </button>
-    <div class="singleContent" v-if="post" :key="id">
+    <div class="singleContent" v-for="post in posts" :key="id">
+        <p class="singleContent-userId"> Created by: {{ getUser(post.userId) }} </p>
         <p class="singleContent-text"> {{ post.contents }} </p>
         <img class="singleContent-media"
             v-if="['png', 'jpg', 'jpeg', 'tiff', 'gif', 'jfif'].includes(getExtension(post.imageUrl))" :src="post.imageUrl"
@@ -14,9 +15,6 @@
             <source :src="post.imageUrl" type="">
         </audio>
     </div>
-    <div v-else>
-        <p> Post is loading ...</p>
-    </div>
 </template>
 
 <script>
@@ -24,8 +22,9 @@ export default {
     name: "ProfileUser",
     data() {
         return {
-            userId: null,
-            post: null,
+            users: [],
+            userId: '',
+            posts: '',
         }
     },
     methods: {
@@ -51,19 +50,22 @@ export default {
         },
         getExtension(imageUrl) {
             return imageUrl?.split('.').pop();
+        },
+        getUser(userId) {
+            return this.users.find(user => user.id === userId)?.email;
         }
     },
     mounted() {
         const { token, userId } = JSON.parse(localStorage.getItem("users-info"));
         this.userId = userId;
-        fetch('http://localhost:3000/api/posts/', {
+        fetch(`http://localhost:3000/api/posts/${userId}`, {
             method: 'get',
             headers: {
                 "Authorization": `Bearer ${token}`,
             }
         })
             .then(response => response.json())
-            .then(data => { this.post = data; })
+            .then(data => { this.posts = data; })
             .catch(error => { console.log(error.message); })
     }
 }
@@ -75,6 +77,8 @@ button {
     width: 100px;
     height: 30px;
     margin-top: 30px;
+    position: fixed;
+    bottom: 10px;
 }
 
 .singleContent {
@@ -87,6 +91,11 @@ button {
     flex-direction: column;
     background-color: lightgray;
     opacity: 5;
+}
+
+.singleContent-userId {
+    padding: 20px 20px 0px;
+    text-align: left;
 }
 
 .singleContent-text {
