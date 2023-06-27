@@ -98,9 +98,9 @@ export default {
   padding: 2px;
   margin-left: 5px;
   border: hidden;
-  background-color: light
-  gray;
+  background-color: light gray;
 }
+
 div .home-column {
   display: flex;
   flex-direction: column;
